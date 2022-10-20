@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+// allow signup and login
 const register = (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
         if (err) {

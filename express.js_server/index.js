@@ -3,15 +3,26 @@ const express = require('express');
 const app = express();
 const http = require("http");
 const cors = require("cors");
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/chatapp') //connect to db
+const db = mongoose.connection
+db.on('error', (error)=> console.error(error));
+db.once('open', () => console.log('Connected to database'))
 
 app.use(cors());
+app.use(express.json())
+
 
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-
+// ROUTES
 const AuthRoute = require('./routes/Auth');
 app.use('/register', AuthRoute);
+
+const ChatRoute = require('./routes/Chat');
+app.use('/Chat', ChatRoute);
 
 // SOCKET.IO SETUP
 const {Server} = require("socket.io");
