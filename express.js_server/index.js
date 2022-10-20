@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
+const AuthRoute = require('./routes/Auth');
+app.use('/register', AuthRoute);
+
 // SOCKET.IO SETUP
 const {Server} = require("socket.io");
 
