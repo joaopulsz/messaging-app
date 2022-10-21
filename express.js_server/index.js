@@ -39,16 +39,16 @@ const User = require('./models/User')
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on("create_chat", () => {
-        const chat = new Chat()
+    socket.on("create_chat", async ({ user1_id, user2_id}) => {
+        // parse in username instead of id?
+        const chat = new Chat({
+            users: [user1_id, user2_id],
+            messages: []
+        })
         chat.save().then(res => io.emit('chat_created', res))
     })
-
-    socket.on("join_room", async ({chat_id, user2_id, user1_id}) => {
-        let chat = await Chat.findById(chat_id);
-        chat.users.push(user1_id, user2_id)
-        chat.save()
-        // socket.id?
+    
+    socket.on("join_room", async ({chat_id}) => {
         socket.join(chat_id);
         console.log(`User with id: ${socket.id} joined room: ${chat_id}`);
     });
