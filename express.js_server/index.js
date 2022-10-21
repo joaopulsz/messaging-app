@@ -33,17 +33,34 @@ const io = new Server(server, {
         methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     },
 });
+const Chat = require('./models/Chat')
+const User = require('./models/User')
 
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on("join_room", (data) => {
-        socket.join(data);
-        console.log(`User with id: ${socket.id} joined room: ${data}`);
+    socket.on("create_chat", () => {
+        const chat = new Chat()
+        chat.save().then(res => io.emit('chat_created', res))
+    })
+
+    socket.on("join_room", async ({chat_id, user2_id, user1_id}) => {
+        let chat = await Chat.findById(chat_id);
+        chat.users.push(user1_id, user2_id)
+        chat.save()
+        // socket.id?
+        socket.join(chat_id);
+        console.log(`User with id: ${socket.id} joined room: ${chat_id}`);
     });
 
-    socket.on("send_message", (data) => {
-        socket.to(data.room).emit("receive_message", data);
+    socket.on("send_message", async ({message, user_id, chat_id}) => {
+        let chat = await Chat.findById(chat_id)
+        chat.messages.push({
+            message: message,
+            user: user_id
+        })
+        chat.save()
+        socket.to(chat_id).emit("receive_message", message);
     });
 
     socket.on("disconnect", () => {
