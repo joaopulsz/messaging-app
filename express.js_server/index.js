@@ -18,8 +18,8 @@ const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 // ROUTES
-const AuthRoute = require('./routes/Auth');
-app.use('/', AuthRoute);
+const UserRoute = require('./routes/User');
+app.use('/', UserRoute);
 
 const ChatRoute = require('./routes/Chat');
 app.use('/Chat', ChatRoute);

@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 // allow signup and login
 const register = (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
@@ -16,9 +17,7 @@ const register = (req, res, next) => {
         })
         user.save()
         .then(user => {
-            res.json({
-                message: 'User created successfully.'
-            })
+            res.status(201).json(user)
         })
         .catch(error => {
             res.json({
@@ -26,6 +25,7 @@ const register = (req, res, next) => {
             })
         })
     })
+    next();
 }
 
 const login = (req, res, next) => {
@@ -60,5 +60,7 @@ const login = (req, res, next) => {
         }
     })
 }
+
+
 
 module.exports = {register, login}
