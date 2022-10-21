@@ -17,7 +17,7 @@ const getChatById = async (req, res, next) => {
     }
 }
 
-const newChat = async (req, res, next) => {
+const newChat = async (req, res) => {
     let chat = new Chat({
         users: [req.body.user1, req.body.user2],
         messages: []
@@ -32,4 +32,20 @@ const newChat = async (req, res, next) => {
     }
 }
 
-module.exports = {getChatById, newChat}
+const deleteChat = async (req, res) => {
+    let chatId = req.params.id;
+    let chat; 
+    try {
+        chat = await Chat.findById(chatId);
+        chat.remove();
+        res.status(410).json({
+            message: 'Chat deleted successfully.'
+        });
+    } catch (err){
+        res.status(404).json({
+            message: 'Chat not found'
+        })
+    }
+}
+
+module.exports = {getChatById, newChat, deleteChat}

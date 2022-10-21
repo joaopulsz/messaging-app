@@ -97,4 +97,26 @@ const addFriend = async (req, res) => {
     }
 }
 
-module.exports = { register, login, getUserById, addFriend }
+const deleteFriend = async (req, res) => {
+    let username = req.body.username;
+    
+    try {
+        let loggedInUser = await User.findById(req.params.id);
+        const user = await User.findOne({ $or: [{ email: username }, { username: username }] })
+        if (user && loggedInUser) {
+            loggedInUser.friends.splice(loggedInUser.friends.indexOf(user), 1);
+            loggedInUser.save();
+            user.friends.splice(user.friends.indexOf(loggedInUser), 1);
+            user.save();
+            res.status(200).json({
+                message: "Friend successfully removed."
+            })
+        }
+    } catch (err) {
+        res.status(400).json({
+            message: "User not found."
+        })
+    }
+}
+
+module.exports = { register, login, getUserById, addFriend, deleteFriend }
