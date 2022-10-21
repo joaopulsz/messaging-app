@@ -20,7 +20,6 @@ const getChatById = async (req, res, next) => {
         })
     }
     res.chat = chat;
-    next();
 }
 
 const newChat = async (req, res, next) => {
@@ -36,7 +35,6 @@ const newChat = async (req, res, next) => {
             message: err.message
         })
     }
-    next();
 }
 
 module.exports = {getChatById, newChat}

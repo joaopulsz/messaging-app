@@ -22,7 +22,7 @@ const UserRoute = require('./routes/User');
 app.use('/', UserRoute);
 
 const ChatRoute = require('./routes/Chat');
-app.use('/Chat', ChatRoute);
+app.use('/', ChatRoute);
 
 // SOCKET.IO SETUP
 const {Server} = require("socket.io");
