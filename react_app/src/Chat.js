@@ -16,9 +16,9 @@ const Chat = ({socket, username, room}) => {
                 ":" + 
                 new Date(Date.now()).getMinutes()
             };
-        await socket.emit("send_message", messageData);
-        setMessageList((messageList) => [...messageList, messageData]);
-        setCurrentMessage("");    
+            await socket.emit("send_message", messageData);
+            setMessageList((messageList) => [...messageList, messageData]);
+            setCurrentMessage("");    
         }
     };
 
