@@ -19,7 +19,7 @@ const server = http.createServer(app);
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 // ROUTES
 const AuthRoute = require('./routes/Auth');
-app.use('/register', AuthRoute);
+app.use('/', AuthRoute);
 
 const ChatRoute = require('./routes/Chat');
 app.use('/Chat', ChatRoute);
