@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import UserContext from "../UserContext";
-import ChatContainer from './ChatContainer';
+// import ChatContainer from './ChatContainer';
 import UserContainer from './UserContainer';
 import io from 'socket.io-client';
 
@@ -30,6 +30,16 @@ const AppContainer = () => {
         const response = await fetch('http://localhost:4000/chat');
         const chatData = await response.json();
         setChats(chatData);
+
+    const addUser = async (newUser) => {
+        const response = await fetch("http://localhost:4000/register", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newUser)
+        })
+        const savedUser = await response.json();
+        setUsers([...users, savedUser]);
+
     }
 
     useEffect(() => {
@@ -42,9 +52,11 @@ const AppContainer = () => {
     return (
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
             <ChatContainer socket={socket}></ChatContainer>
-            {/* <UserContainer></UserContainer> */}
+            <UserContainer addUser={addUser} />
         </UserContext.Provider>
     )
+}
+
 }
 
 export const useUser = () => useContext(UserContext);

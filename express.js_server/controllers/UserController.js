@@ -40,11 +40,11 @@ const login = (req, res) => {
                         })
                     }
                     if (result) {
-                        // let token = jwt.sign({name: user.usermame}, 'password', {expiresIn: '1h'});
-                        res.status(200).json({
-                            message: "Login successful.",
+                        // let token = jwt.sign({name: user.username}, 'password', {expiresIn: '1h'});
+                        res.status(200).json(
+                            user
                             // token
-                        })
+                        )
                     } else {
                         res.status(400).json({
                             message: "Password does not match."
