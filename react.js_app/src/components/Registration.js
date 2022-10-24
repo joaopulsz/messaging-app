@@ -36,6 +36,8 @@ const Registration = ({addUser}) => {
         const checkPassword = event =>{
             if (newUser.password === event.target.value){
                 setMatch(true);
+            }else{
+                setMatch(false)
             }
         }
 
@@ -54,11 +56,11 @@ const Registration = ({addUser}) => {
 
             <label htmlFor="password">Password (minimum 8 characters): </label>
             <input id="password" type="password" name="password" 
-            placeholder="Password" value={newUser.password} minlength="8" required onChange={handleChange}/>
+            placeholder="Password" value={newUser.password} minLength="8" required onChange={handleChange}/>
 
             <label htmlFor="confirm_password">Confirm Password: </label>
             <input id="confirm_password" type="password" name="confirmPassword" 
-            placeholder="Confirm Password" value={newUser.confirmPassword} minlength="8" 
+            placeholder="Confirm Password" value={newUser.confirmPassword} minLength="8" 
             required onChange={handleChange} onKeyUp={checkPassword}/>
             { newUser.confirmPassword !== "" ?
                 <>
@@ -66,7 +68,7 @@ const Registration = ({addUser}) => {
                 </>
              : <p className="hidden"></p>}
 
-            <input id="create-account-btn" type="submit" value="Create Account" />
+            <input id="create-account-btn" type="submit" value="Create Account" disabled={newUser.confirmPassword !== '' && match? false: true}/>
 
         
         </form>
