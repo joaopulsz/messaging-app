@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import ChatContainer from './ChatContainer';
 import UserContainer from './UserContainer';
+import io from 'socket.io-client';
 
 const AppContainer = () => {
     const [loggedInUser, setLoggedInUser] = useState();
     const [users, setUsers] = useState([]);
     const [chats, setChats] = useState([]);
+
+    const socket = io.connect("http://localhost:4000");
 
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:4000/user');
@@ -27,7 +30,7 @@ const AppContainer = () => {
     
     return (
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
-            <ChatContainer></ChatContainer>
+            <ChatContainer socket={socket}></ChatContainer>
             <UserContainer></UserContainer>
         </UserContext.Provider>
     )
