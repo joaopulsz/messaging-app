@@ -20,16 +20,18 @@ const Registration = ({addUser}) => {
         }
 
         const handleSubmit = event => {
-            event.preventDefault();
-            addUser(newUser);
-            setNewUser({
-                username: "", 
-                email: "",
-                password:"",
-                confirmPassword:""    
-            })
-            setMatch(false);
+            if (match){
+                event.preventDefault();
+                addUser(newUser);
+                setNewUser({
+                    username: "", 
+                    email: "",
+                    password:"",
+                    confirmPassword:""    
+                })
+                setMatch(false);
         }
+    }
 
         const checkPassword = event =>{
             if (newUser.password === event.target.value){
@@ -58,18 +60,18 @@ const Registration = ({addUser}) => {
             <input id="confirm_password" type="password" name="confirmPassword" 
             placeholder="Confirm Password" value={newUser.confirmPassword} minlength="8" 
             required onChange={handleChange} onKeyUp={checkPassword}/>
-            { newUser.confirmPassword != undefined?
+            { newUser.confirmPassword !== "" ?
                 <>
                 {match? <p>Password matches</p> : <p>Password doesn't match</p>}
                 </>
              : <p className="hidden"></p>}
 
-            <input id="create-account-btn" type="submit" value="Create Account" disabled={match? "false" : "true"} />
+            <input id="create-account-btn" type="submit" value="Create Account" />
 
         
         </form>
 
-        <a href="">Log in</a>
+        <a href="/">Log in</a>
 
         </div>
     );
