@@ -1,6 +1,8 @@
 import { useState } from "react";
+import {Link, useNavigate} from 'react-router-dom';
 
 const Registration = ({addUser}) => {
+    const navigate = useNavigate()
     const [newUser, setNewUser] = useState(
         {
             username: "", 
@@ -30,6 +32,7 @@ const Registration = ({addUser}) => {
                     password:"",
                     confirmPassword:""    
                 })
+                navigate('/')
             }
         }
 
@@ -72,8 +75,8 @@ const Registration = ({addUser}) => {
 
         
         </form>
-
-        <a href="/">Log in</a>
+        
+        <Link to="/">Log in</Link>
 
         </div>
     );

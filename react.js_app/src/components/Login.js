@@ -1,6 +1,9 @@
 import { useState } from "react"
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = ({fetchLogIn}) => {
+    const navigate = useNavigate()
+
     const [user, setUser] = useState({
         username: "",
         password: ""
@@ -20,6 +23,7 @@ const Login = ({fetchLogIn}) => {
             username: "",
             password: ""
         })
+        navigate('/account')
     }
 
     return (
@@ -44,7 +48,7 @@ const Login = ({fetchLogIn}) => {
 
                 <input id="login-btn" type="submit" value="Login" />
             </form>
-            <a href="/">Sign up</a>
+            <Link to="/signup">Sign up</Link>
         </div>
     )
 }

@@ -1,8 +1,9 @@
 import { useContext} from "react";
 import UserContext from "../UserContext";
 import Registration from "../components/Registration";
-import Login from "../components/Login"
-import User from "../components/User"
+import Login from "../components/Login";
+import User from "../components/User";
+import {Routes, Route} from 'react-router-dom';
 
 const UserContainer = ({addUser}) => {
     const {loggedInUser, setLoggedInUser} = useContext(UserContext);
@@ -23,11 +24,11 @@ const UserContainer = ({addUser}) => {
     }
     
     return (
-        <>
-            <Registration addUser={addUser}/>
-            <Login fetchLogIn={fetchLogIn} />
-            <User />
-        </>
+        <Routes>
+            <Route path='/signup' element={<Registration addUser={addUser}/>}/>
+            <Route path='/' element={<Login fetchLogIn={fetchLogIn} />}/>
+            <Route path='/account' element={<User />}/>
+        </Routes>
     )
 }
 
