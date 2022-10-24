@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import FriendsList from "../components/FriendsList";
 import Chat from "../components/Chat";
 import UserContext from "../UserContext";
+import { useUser } from "./AppContainer";
 
-const ChatContainer = ({setLoggedInUser, users, chats, socket}) => {
+const ChatContainer = ({users, chats, socket}) => {
 
     const [friends, setFriends] = useState([]);
     // setFriends(loggedInUser.friends);
-    const [loggedInUser]=UserContext();
+
+    const {loggedInUser, setLoggedInUser} = useUser();
+    console.log(loggedInUser);
 
     const [currentChat, setCurrentChat] = useState([]);
 
@@ -22,16 +25,16 @@ const ChatContainer = ({setLoggedInUser, users, chats, socket}) => {
     //     return chat.users.map(user => user.id === loggedInUser.id)
     // })
 
-    const addFriend = async (friend) => {
-        const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser.id}`, {
-            method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(friend)
-        }) 
-        const friendData = await response.json();
-        // come back to when logged in user is set up
-        setLoggedInUser();
-    }
+    // const addFriend = async (friend) => {
+    //     const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser.id}`, {
+    //         method: "PATCH",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify(friend)
+    //     }) 
+    //     const friendData = await response.json();
+    //     // come back to when logged in user is set up
+    //     setLoggedInUser();
+    // }
 
     // const currentFriendChat = (friendChat) => {
     //     setCurrentChat(friendChat[0].messages);
@@ -39,7 +42,7 @@ const ChatContainer = ({setLoggedInUser, users, chats, socket}) => {
 
     return (
         <>
-        <p>"ChatContainer"</p>
+        <p>{loggedInUser.email}</p>
             {/* <Search/> */}
             {/* <AddFriend users={users}/> */}
             {/* <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/> */}
