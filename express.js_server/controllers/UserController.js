@@ -59,6 +59,17 @@ const login = (req, res) => {
         })
 }
 
+const getAllUsers = async(req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+}
+
 const getUserById = async (req, res) => {
     let userId = req.params.id;
     console.log(userId)
@@ -118,4 +129,4 @@ const deleteFriend = async (req, res) => {
     }
 }
 
-module.exports = { register, login, getUserById, addFriend, deleteFriend }
+module.exports = { register, login, getAllUsers, getUserById, addFriend, deleteFriend }
