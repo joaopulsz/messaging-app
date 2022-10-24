@@ -2,12 +2,11 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// allow signup and login
 const register = (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
         if (err) {
-            res.json({
-                error: err
+            res.status(500).json({
+                message: err.message
             })
         }
         let user = new User({
@@ -36,24 +35,24 @@ const login = (req, res) => {
             if (user) {
                 bcrypt.compare(password, user.password, (err, result) => {
                     if (err) {
-                        res.json({
-                            error: err
+                        res.status(500).json({
+                            message: err.message
                         })
                     }
                     if (result) {
                         // let token = jwt.sign({name: user.usermame}, 'password', {expiresIn: '1h'});
-                        res.json({
+                        res.status(200).json({
                             message: "Login successful.",
                             // token
                         })
                     } else {
-                        res.json({
+                        res.status(400).json({
                             message: "Password does not match."
                         })
                     }
                 })
             } else {
-                res.json({
+                res.status(404).json({
                     message: 'No user found.'
                 })
             }

@@ -5,10 +5,10 @@ const http = require("http");
 const cors = require("cors");
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/chatapp') //connect to db
-const db = mongoose.connection
+mongoose.connect('mongodb://localhost/chatapp'); //connect to db
+const db = mongoose.connection;
 db.on('error', (error)=> console.error(error));
-db.once('open', () => console.log('Connected to database'))
+db.once('open', () => console.log('Connected to database'));
 
 app.use(cors());
 app.use(express.json())
@@ -17,6 +17,7 @@ app.use(express.json())
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
 // ROUTES
 const UserRoute = require('./routes/User');
 app.use('/', UserRoute);
@@ -33,25 +34,29 @@ const io = new Server(server, {
         methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     },
 });
-const Chat = require('./models/Chat')
-const User = require('./models/User')
+
+const Chat = require('./models/Chat');
 
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on("create_chat", async ({ user1_id, user2_id}) => {
-        // parse in username instead of id?
+    socket.on("create_chat", ({ user1_id, user2_id}) => {
         const chat = new Chat({
             users: [user1_id, user2_id],
             messages: []
         })
-        chat.save().then(res => io.emit('chat_created', res))
+        chat.save().then(res => io.emit('chat_created', res));
     })
     
-    socket.on("join_room", async ({chat_id}) => {
+    socket.on("join_chat", ({chat_id}) => {
         socket.join(chat_id);
-        console.log(`User with id: ${socket.id} joined room: ${chat_id}`);
+        socket.chat = chat_id;
     });
+
+    socket.on("change_chat", ({chat_id}) => {
+        socket.leave(socket.chat);
+        socket.join(chat_id);
+    })
 
     socket.on("send_message", async ({message, user_id, chat_id}) => {
         let chat = await Chat.findById(chat_id)

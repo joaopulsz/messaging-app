@@ -2,9 +2,7 @@
 // retrieve chats from database 
 const Chat = require('../models/Chat')
 
-//get chat by id - by two users' id  
-
-const getChatById = async (req, res, next) => {
+const getChatById = async (req, res) => {
     let chatId = req.params.id;
     let chat; 
     try {
