@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import FriendsList from "../components/FriendsList";
+import Chat from "../components/Chat";
+import UserContext from "../UserContext";
 
-const ChatContainer = ({loggedInUser, setLoggedInUser, users, chats, socket}) => {
+const ChatContainer = ({setLoggedInUser, users, chats, socket}) => {
 
     const [friends, setFriends] = useState([]);
-    setFriends(loggedInUser.friends);
+    // setFriends(loggedInUser.friends);
+    const [loggedInUser]=UserContext();
 
     const [currentChat, setCurrentChat] = useState([]);
 
-    const filteredChats = chats.filter(chat => {
-        // const chats = [];
-        // chat.users.forEach(user => {
-        //     if (user.id === loggedInUser.id) {
-        //         chats.push(chat);
-        //     }
-        // })
-        // return chats;
-        return chat.users.map(user => user.id === loggedInUser.id)
-    })
+    // const filteredChats = chats.filter(chat => {
+    //     // const chats = [];
+    //     // chat.users.forEach(user => {
+    //     //     if (user.id === loggedInUser.id) {
+    //     //         chats.push(chat);
+    //     //     }
+    //     // })
+    //     // return chats;
+    //     return chat.users.map(user => user.id === loggedInUser.id)
+    // })
 
     const addFriend = async (friend) => {
         const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser.id}`, {
@@ -29,16 +33,17 @@ const ChatContainer = ({loggedInUser, setLoggedInUser, users, chats, socket}) =>
         setLoggedInUser();
     }
 
-    const currentFriendChat = (friendChat) => {
-        setCurrentChat(friendChat[0].messages);
-    }
+    // const currentFriendChat = (friendChat) => {
+    //     setCurrentChat(friendChat[0].messages);
+    // }
 
     return (
         <>
-            <Search/>
-            <AddFriend users={users}/>
-            <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-            <Chat socket={socket} currentChat={currentChat}/>
+        <p>"ChatContainer"</p>
+            {/* <Search/> */}
+            {/* <AddFriend users={users}/> */}
+            {/* <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/> */}
+            {/* <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> */}
         </>
     );
 

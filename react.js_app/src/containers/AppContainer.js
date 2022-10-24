@@ -5,11 +5,20 @@ import UserContainer from './UserContainer';
 import io from 'socket.io-client';
 
 const AppContainer = () => {
-    const [loggedInUser, setLoggedInUser] = useState();
+    const [loggedInUser, setLoggedInUser] = useState({
+        "_id": "635282fbfcdcc247674e1b79",
+        "username": "User1",
+        "email": "User1@chatapp.com",
+        "password": "$2a$10$4/Rl6GVWjPfMc9LRIFJqeuB4FwpuSKAJBpGi/.rW85HYkE.X/9b5m",
+        "friends": [],
+        "createdAt": "2022-10-21T11:31:07.155Z",
+        "updatedAt": "2022-10-21T11:31:07.155Z",
+        "__v": 0
+        });
     const [users, setUsers] = useState([]);
     const [chats, setChats] = useState([]);
 
-    const socket = io.connect("http://localhost:4000");
+    // const socket = io.connect("http://localhost:4000");
 
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:4000/user');
@@ -28,10 +37,12 @@ const AppContainer = () => {
         fetchChats();
     }, [])
     
+    const socket = ""
+
     return (
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
             <ChatContainer socket={socket}></ChatContainer>
-            <UserContainer></UserContainer>
+            {/* <UserContainer></UserContainer> */}
         </UserContext.Provider>
     )
 }
