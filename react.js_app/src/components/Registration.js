@@ -20,18 +20,18 @@ const Registration = ({addUser}) => {
         }
 
         const handleSubmit = event => {
+            event.preventDefault();
             if (match){
-                event.preventDefault();
                 addUser(newUser);
+                setMatch(false);          
                 setNewUser({
                     username: "", 
                     email: "",
                     password:"",
                     confirmPassword:""    
                 })
-                setMatch(false);
+            }
         }
-    }
 
         const checkPassword = event =>{
             if (newUser.password === event.target.value){
