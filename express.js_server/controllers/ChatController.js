@@ -15,6 +15,17 @@ const getChatById = async (req, res) => {
     }
 }
 
+const getAllChats = async(req, res) => {
+    try {
+        const chats = await Chat.find();
+        res.status(200).json(chats);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+}
+
 const newChat = async (req, res) => {
     let chat = new Chat({
         users: [req.body.user1, req.body.user2],
@@ -46,4 +57,4 @@ const deleteChat = async (req, res) => {
     }
 }
 
-module.exports = {getChatById, newChat, deleteChat}
+module.exports = {getChatById, newChat, deleteChat, getAllChats}

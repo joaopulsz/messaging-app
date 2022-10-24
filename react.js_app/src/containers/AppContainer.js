@@ -6,6 +6,7 @@ import UserContainer from './UserContainer';
 const AppContainer = () => {
     const [loggedInUser, setLoggedInUser] = useState();
     const [users, setUsers] = useState([]);
+    const [chats, setChats] = useState([]);
 
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:4000/user');
@@ -13,12 +14,19 @@ const AppContainer = () => {
         setUsers(userData);
     }
 
+    const fetchChats = async () => {
+        const response = await fetch('http://localhost:4000/chat');
+        const chatData = await response.json();
+        setChats(chatData);
+    }
+
     useEffect(() => {
         fetchUsers();
+        fetchChats();
     }, [])
     
     return (
-        <UserContext.Provider value={{loggedInUser, users, setLoggedInUser}}>
+        <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
             <ChatContainer></ChatContainer>
             <UserContainer></UserContainer>
         </UserContext.Provider>
