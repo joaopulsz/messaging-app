@@ -46,24 +46,15 @@ const ChatContainer = ({users, socket}) => {
 
     console.log(currentChat);
 
-    return currentChat.length != 0 ? (
+    return (
         <>
-
-        <p>You are logged in as {loggedInUser.username}</p>
+            <p>You are logged in as {loggedInUser.username}</p>
             <Search />
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-            <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/>
+            {currentChat.length != 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}          
         </>
-    ) : (            
-        <>
-            <p>You're logged in as: {loggedInUser.username}</p>
-            {/* <Search/> */}
-            {/* <AddFriend users={users}/> */}
-            <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-        </>
-        );
-
+    )
 }
 
 export default ChatContainer;
