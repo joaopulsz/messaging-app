@@ -99,6 +99,10 @@
         font-size: 18px;
     }
 
+    .login .display {
+        font-size: 15px;
+    }
+
     .login form input{
         font-size: 16px;
     }
@@ -128,6 +132,10 @@
 
     .login form input{
         font-size: 14px;
+    }
+
+    .login .display {
+        font-size: 12px;
     }
 
     #login-btn {
