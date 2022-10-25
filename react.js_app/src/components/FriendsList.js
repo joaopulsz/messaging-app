@@ -1,7 +1,15 @@
-const FriendsList = (friends, filteredChats, currentFriendChat) => {
+const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
 
     const friendsList = friends.map(friend => {
-        const friendChat = filteredChats.map(chat => chat.users[0] || chat.users[1] === friend.id)
+        const friendChat = filteredChats.map(
+            
+            const fetchUserById = async () => {
+                const response = await fetch(`http://localhost:4000/user/${id}`);
+                const userData = await response.json();
+                setUsers(userData);
+            }
+            
+        )
         return <li onClick={() => currentFriendChat(friendChat)}>{friend.username}</li>
     })
 

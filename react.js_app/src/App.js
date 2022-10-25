@@ -1,11 +1,5 @@
 import './App.css';
 import AppContainer from './containers/AppContainer';
-<<<<<<< HEAD
-
-function App() {
-  return (
-      <AppContainer/>
-=======
 import {BrowserRouter} from 'react-router-dom';
 
 function App() {
@@ -15,7 +9,6 @@ function App() {
       <AppContainer />
       </BrowserRouter>
     </div>
->>>>>>> main
   );
 }
 
