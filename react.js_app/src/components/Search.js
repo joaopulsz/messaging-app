@@ -1,16 +1,20 @@
-import { useContext, useState } from "react";
+import { Children, useContext, useState } from "react";
 import UserContext from "../UserContext";
 import { Autocomplete } from '@mui/material'
 import { TextField } from "@mui/material";
 
-const Search = () => {
+const Search = ({filteredFun}) => {
     const {loggedInUser, users} = useContext(UserContext);
     const [searchedUser, setSearchedUser] = useState([])
     const [isFriend, setIsFriend] = useState(false)
     const [inputValue, setInputValue] = useState("")
-    console.log("search")
 
-    const filteredUser = searchedUser => users.find(user => user.username.toLowerCase().includes(searchedUser.toLowerCase()))
+    const filteredUser = searchedUser => users.find(user => {
+            if(user.username.toLowerCase().includes(searchedUser.toLowerCase())){
+                setSearchedUser(user)
+                return user
+            }
+        })
 
     const handleChange = event => {
         const searchedUser = filteredUser(event.target.value)
@@ -23,32 +27,39 @@ const Search = () => {
         }
     }
 
-    const filteredFriends = username => loggedInUser.friends.filter(friend => friend.username.toLowerCase().includes(username.toLowerCase()))
+    const filteredFriends = username => {
+        return loggedInUser.friends.find(friendId => {
+            const friend = users.find(user => user._id === friendId)
+            if(friend.username.toLowerCase().includes(username.toLowerCase())){
+                setSearchedUser(friend)
+                return friend
+            }
+        })
+    }
+
+    const isFindFriend = () => {
+        return loggedInUser.friends.find(friendId => {
+            const isFind = users.find(user => {
+                if(user._id === friendId){
+                    return user.username.toLowerCase() === inputValue.toLowerCase()
+                }
+            })
+            setIsFriend(isFind)
+            return isFind
+        })
+    }
 
     const handleSubmit = event => {
         event.preventDefault()
+        if(inputValue === "") filteredFun(loggedInUser.friends)
+        const friend = filteredFriends(inputValue)
+        if(isFindFriend() && friend){
+            filteredFun([searchedUser._id])
+        }
     }
 
 return(
     <div className="search">
-        <h2>Search</h2>
-        {/* <form onSubmit={handleSubmit}> */}
-            {/* search bar */}
-            {/* <input
-            type="search"
-            id="search-input"
-            placeholder="Search by username"
-            name="search"
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            /> */}
-            {/* add friend button */}
-            {/* <input
-            type="submit"
-            id="search-btn"
-            value={isFriend? "Remove friend" : "Add Friend"}
-            />
-        </form> */}
         <Autocomplete
             freeSolo
             disableClearable
@@ -68,7 +79,7 @@ return(
                 />
               )}
         />
-        {/* {searchedUser ? <h2>{searchedUser.username}</h2> : <h2></h2>} */}
+        <button onClick={handleSubmit}>Search</button>
     </div>
 )
 

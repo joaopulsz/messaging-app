@@ -101,6 +101,7 @@ const addFriend = async (req, res) => {
             })
         }
     } catch (err) {
+        console.log(loggedInUser)
         res.status(400).json({
             message: "User not found."
         })

@@ -44,15 +44,19 @@ const ChatContainer = ({users, socket}) => {
         setCurrentChat(friendChat[0]);
     }
 
+    const filteredFriends = searchedUser => {
+        setFriends(searchedUser)
+    }
+
     console.log(currentChat);
 
     return (
         <>
             <p>You are logged in as {loggedInUser.username}</p>
-            <Search />
+            <Search filteredFun={filteredFriends} />
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-            {currentChat.length != 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}          
+            {currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}          
         </>
     )
 }
