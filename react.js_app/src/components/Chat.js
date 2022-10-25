@@ -21,8 +21,6 @@ const Chat = ({currentChat, setCurrentChat, socket}) => {
             created: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()  
         }
         await socket.emit("send_message", params);
-        // currentChat.messages.push(params);
-        // params.created = message.created;
         setCurrentChat(oldChat => {
             return {...oldChat, messages: [...oldChat.messages, params]}
         });
