@@ -1,17 +1,29 @@
+import { useContext } from "react";
+import UserContext from "../UserContext";
+
 const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
 
-    const friendsList = friends.map(friend => {
-        const friendChat = filteredChats.map(
-            
-            const fetchUserById = async () => {
-                const response = await fetch(`http://localhost:4000/user/${id}`);
-                const userData = await response.json();
-                setUsers(userData);
+    const {users} = useContext(UserContext);
+    
+    const filteredFriends = users.map(user => {
+        return friends.map(friend => {
+            if (friend === user._id) {
+                return user;
             }
-            
-        )
-        return <li onClick={() => currentFriendChat(friendChat)}>{friend.username}</li>
+        })
     })
+
+    console.log(filteredFriends)
+
+    const friendsList = filteredFriends.flat().map(friend => {
+        if (friend) {
+            return <li onClick={() => currentFriendChat()}>{friend.username}</li>;
+        }
+    });
+        
+    // const friendChat = filteredChats.map(chat => chat.users[0] || chat.users[1] === friend)
+        
+        
 
     return (
         <>
