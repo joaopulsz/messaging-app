@@ -1,10 +1,11 @@
 import { useState, useContext } from "react"
 import UserContext from "../UserContext";
 import { Link, useNavigate } from 'react-router-dom'
+import './Login.css'
 
 const Login = ({fetchLogIn}) => {
     const navigate = useNavigate()
-    const {loggedInUser, setLoggedInUser} = useContext(UserContext);
+    const {loggedInUser} = useContext(UserContext);
 
     const [user, setUser] = useState({
         username: "",
@@ -21,7 +22,6 @@ const Login = ({fetchLogIn}) => {
     const handleSubmit = event => {
         event.preventDefault()
         fetchLogIn(user).then(savedUser => {
-            console.log(savedUser)
             if(savedUser != undefined && savedUser.username) {
                 setUser({
                     username: "",
@@ -33,7 +33,7 @@ const Login = ({fetchLogIn}) => {
     }
 
     return (
-        <div className="log-in">
+        <div className="login">
             <h2>Log In</h2>
             {loggedInUser != undefined && loggedInUser.message ? 
             <p>{loggedInUser.message}</p> :
@@ -42,7 +42,7 @@ const Login = ({fetchLogIn}) => {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username or Email:</label>
                 <input type="text"
-                id="log-in-username"
+                id="login-username"
                 name="username"
                 placeholder="Username or Email"
                 onChange={handleChange}
@@ -50,15 +50,15 @@ const Login = ({fetchLogIn}) => {
 
                 <label htmlFor="password">Password:</label>
                 <input type="password"
-                id="log-in-password"
+                id="login-password"
                 name="password"
                 placeholder="Password"
                 onChange={handleChange}
                 />
 
                 <input id="login-btn" type="submit" value="Login" />
+                <Link to="/signup">Sign up</Link>
             </form>
-            <Link to="/signup">Sign up</Link>
         </div>
     )
 }

@@ -1,0 +1,25 @@
+.sign-up{
+    text-align: center;
+}
+
+.sign-up form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px 200px;
+    background-color: #B4F8C8;
+}
+
+.sign-up input{
+    padding: 6px;
+    margin: 7px;
+}
+
+#create-account-btn{
+    width: 30%;
+    margin: 10px auto;
+    background-color: #B4F8C8;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-weight: 550;
+}

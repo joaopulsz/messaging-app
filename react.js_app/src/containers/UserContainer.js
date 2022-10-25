@@ -6,7 +6,7 @@ import User from "../components/User";
 import {Routes, Route} from 'react-router-dom';
 
 const UserContainer = ({addUser}) => {
-    const {loggedInUser, setLoggedInUser} = useContext(UserContext);
+    const {setLoggedInUser} = useContext(UserContext);
 
     const fetchLogIn = async user => {
         const response = await fetch("http://localhost:4000/login",{

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
+import './Registration.css'
 
 const Registration = ({addUser}) => {
     const navigate = useNavigate()
@@ -51,11 +52,11 @@ const Registration = ({addUser}) => {
             <h2>Sign Up</h2>
             <label htmlFor="email">Email:</label>
             <input id="email" type="email" name="email" 
-            placeholder="email" value={newUser.email} required onChange={handleChange}/>
+            placeholder="Email" value={newUser.email} required onChange={handleChange}/>
 
             <label htmlFor="username">Username:</label>
             <input id="username" type="text" name="username" 
-            placeholder="username" value={newUser.username} required onChange={handleChange}/>
+            placeholder="Username" value={newUser.username} required onChange={handleChange}/>
 
             <label htmlFor="password">Password (minimum 1 characters): </label>
             <input id="password" type="password" name="password" 
