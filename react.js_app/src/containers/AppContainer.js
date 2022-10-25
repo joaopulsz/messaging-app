@@ -10,7 +10,7 @@ const AppContainer = () => {
     const [users, setUsers] = useState([]);
     const [chats, setChats] = useState([]);
 
-    // const socket = io.connect("http://localhost:4000");
+    const socket = io.connect("http://localhost:4000");
 
     const fetchUsers = async () => {
         const response = await fetch('http://localhost:4000/user');
@@ -39,8 +39,6 @@ const AppContainer = () => {
         fetchChats();
     }, [])
     
-    const socket = ""
-
     return loggedInUser ? (
         
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>

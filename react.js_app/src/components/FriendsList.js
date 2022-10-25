@@ -13,11 +13,14 @@ const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
         })
     })
 
-    console.log(filteredFriends)
-
     const friendsList = filteredFriends.flat().map(friend => {
+        const friendChat = filteredChats.map(chat => {
+            if(chat.users[0] || chat.users[1] === friend) {
+                return chat;
+            }
+        })
         if (friend) {
-            return <li onClick={() => currentFriendChat()}>{friend.username}</li>;
+            return <li onClick={() => currentFriendChat(friendChat)}>{friend.username}</li>;
         }
     });
         

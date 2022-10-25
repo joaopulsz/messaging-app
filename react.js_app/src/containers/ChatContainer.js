@@ -21,7 +21,7 @@ const ChatContainer = ({users, socket}) => {
         //     }
         // })
         // return chats;
-        return chat.users.map(user => user.id === loggedInUser.id)
+        return chat.users.map(user => user._id === loggedInUser._id)
     })
 
     // const addFriend = async (friend) => {
@@ -40,18 +40,27 @@ const ChatContainer = ({users, socket}) => {
     }, [])
    
     const currentFriendChat = (friendChat) => {
-        setCurrentChat(friendChat[0].messages);
+        setCurrentChat(friendChat[0]);
     }
 
-    return (
-        <>
-        <p>{loggedInUser.username}</p>
+    console.log(currentChat);
+
+    return currentChat ? (
+        <>  
+            <p>You're logged in as: {loggedInUser.username}</p>
             {/* <Search/> */}
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-            {/* <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> */}
+            <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/>
         </>
-    );
+    ) : (            
+        <>
+            <p>You're logged in as: {loggedInUser.username}</p>
+            {/* <Search/> */}
+            {/* <AddFriend users={users}/> */}
+            <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
+        </>
+        );
 
 }
 
