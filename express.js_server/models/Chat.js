@@ -9,7 +9,7 @@ const chatSchema = new Schema({
     {
         message: String,
         user: {type: Schema.ObjectId, ref: "User"},
-        created: {type:Date, default:Date.now}
+        created: String
     }
    ]
 }, {timestamps: true})

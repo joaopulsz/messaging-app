@@ -58,11 +58,12 @@ io.on("connection", (socket) => {
         socket.join(chat_id);
     })
 
-    socket.on("send_message", async ({message, user_id, chat_id}) => {
+    socket.on("send_message", async ({message, user_id, chat_id, created}) => {
         let chat = await Chat.findById(chat_id)
         chat.messages.push({
             message: message,
-            user: user_id
+            user: user_id,
+            created: created
         })
         chat.save()
         socket.to(chat_id).emit("receive_message", message);

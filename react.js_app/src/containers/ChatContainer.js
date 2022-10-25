@@ -45,7 +45,7 @@ const ChatContainer = ({users, socket}) => {
 
     console.log(currentChat);
 
-    return currentChat ? (
+    return currentChat.length != 0 ? (
         <>  
             <p>You're logged in as: {loggedInUser.username}</p>
             {/* <Search/> */}
