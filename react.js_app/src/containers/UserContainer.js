@@ -20,11 +20,13 @@ const UserContainer = ({addUser}) => {
     }
 
     return (
+        <>
         <Routes>
-            <Route path='/signup' element={<Registration addUser={addUser}/>}/>
+            <Route path='signup' element={<Registration addUser={addUser}/>}/>
             <Route path='/' element={<Login fetchLogIn={fetchLogIn} />}/>
-            <Route path='/account' element={<User />}/>
+            <Route path='account' element={<User />}/>
         </Routes>
+        </>
     )
 }
 
