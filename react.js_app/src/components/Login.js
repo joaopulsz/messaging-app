@@ -33,13 +33,14 @@ const Login = ({fetchLogIn}) => {
     }
 
     return (
+        <div className="login-container">
         <div className="login">
-            <h2>Log In</h2>
-            {loggedInUser != undefined && loggedInUser.message ? 
-            <p>{loggedInUser.message}</p> :
-            <p className="hidden"></p>
-            }
             <form onSubmit={handleSubmit}>
+                <h2>Log In</h2>
+                {loggedInUser != undefined && loggedInUser.message ? 
+                <p>{loggedInUser.message}</p> :
+                <p className="hidden"></p>
+                }
                 <label htmlFor="username">Username or Email:</label>
                 <input type="text"
                 id="login-username"
@@ -57,8 +58,11 @@ const Login = ({fetchLogIn}) => {
                 />
 
                 <input id="login-btn" type="submit" value="Login" />
-                <Link to="/signup">Sign up</Link>
+                <Link to="/signup">
+                    <p>Sign up</p>
+                </Link>
             </form>
+        </div>
         </div>
     )
 }

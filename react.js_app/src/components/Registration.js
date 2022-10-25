@@ -46,6 +46,7 @@ const Registration = ({addUser}) => {
         }
 
     return(
+        <div className="signup-container">
         <div className="sign-up">
         {/* logo */}
         <form onSubmit={handleSubmit}>
@@ -67,18 +68,18 @@ const Registration = ({addUser}) => {
             placeholder="Confirm Password" value={newUser.confirmPassword} minLength="1" 
             required onChange={handleChange} onKeyUp={checkPassword}/>
             { newUser.confirmPassword !== "" ?
-                <>
-                {match? <p>Password matches</p> : <p>Password doesn't match</p>}
-                </>
+                <div className="pwd-message">
+                {match? <p>Passwords match ✅</p> : <p>Passwords don't match ❌</p>}
+                </div>
              : <p className="hidden"></p>}
 
             <input id="create-account-btn" type="submit" value="Create Account" disabled={newUser.confirmPassword !== '' && match? false: true}/>
 
-        
+            <Link to="/">
+                <p>Log in</p>
+            </Link>
         </form>
-        
-        <Link to="/">Log in</Link>
-
+        </div>
         </div>
     );
 
