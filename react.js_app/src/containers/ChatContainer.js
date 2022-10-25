@@ -46,7 +46,7 @@ const ChatContainer = ({users, socket}) => {
 
     return (
         <>
-        <p>{loggedInUser.username}</p>
+        <p>You are logged in as {loggedInUser.username}</p>
             <Search />
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>

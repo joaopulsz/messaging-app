@@ -68,7 +68,7 @@ return(
                 />
               )}
         />
-        {searchedUser ? <h2>{searchedUser.username}</h2> : <h2></h2>}
+        {/* {searchedUser ? <h2>{searchedUser.username}</h2> : <h2></h2>} */}
     </div>
 )
 

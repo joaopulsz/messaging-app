@@ -41,14 +41,14 @@ const AppContainer = () => {
     
     const socket = ""
 
-    return loggedInUser ? (
-        
+    return loggedInUser && loggedInUser.username ? (
+        // if logged in, open chat page
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
             <Routes>
                 <Route path='/chat' element={<ChatContainer socket={socket} />}/>
             </Routes>
         </UserContext.Provider>
-        
+        // else, 
     ) : (
         <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>
             <UserContainer addUser={addUser}/> 
