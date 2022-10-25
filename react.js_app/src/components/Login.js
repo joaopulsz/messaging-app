@@ -23,7 +23,7 @@ const Login = ({fetchLogIn}) => {
             username: "",
             password: ""
         })
-        navigate('/account')
+        navigate('/chat')
     }
 
     return (

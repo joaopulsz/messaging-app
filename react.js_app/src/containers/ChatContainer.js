@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import FriendsList from "../components/FriendsList";
 import Chat from "../components/Chat";
 import UserContext from "../UserContext";
-import { useUser } from "./AppContainer";
+// import { useUser } from "./AppContainer";
 
 const ChatContainer = ({users, socket}) => {
 
@@ -45,7 +45,7 @@ const ChatContainer = ({users, socket}) => {
 
     return (
         <>
-        <p>{loggedInUser.email}</p>
+        <p>{loggedInUser.username}</p>
             {/* <Search/> */}
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>

@@ -3,6 +3,7 @@ import UserContext from "../UserContext";
 import ChatContainer from './ChatContainer';
 import UserContainer from './UserContainer';
 import io from 'socket.io-client';
+import {Routes, Route} from 'react-router-dom';
 
 const AppContainer = () => {
     const [loggedInUser, setLoggedInUser] = useState();
@@ -41,10 +42,13 @@ const AppContainer = () => {
     const socket = ""
 
     return loggedInUser ? (
-
+        
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
-            <ChatContainer socket={socket}></ChatContainer>
+            <Routes>
+                <Route path='/chat' element={<ChatContainer socket={socket} />}/>
+            </Routes>
         </UserContext.Provider>
+        
     ) : (
         <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>
             <UserContainer addUser={addUser}/> 
