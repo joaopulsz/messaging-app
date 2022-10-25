@@ -1,0 +1,96 @@
+
+body{
+    background-image: url(https://wallpapercave.com/wp/wp6110843.jpg);
+    background-size: cover;
+    height: 100%;
+}
+
+.sign-up{
+    text-align: center;
+    font-family: 'Varela Round', sans-serif;
+}
+
+
+.sign-up form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10% 25%;
+    font-size: large;
+    color: rgb(157, 35, 108);
+}
+
+.sign-up input{
+    padding: 6px;
+    margin: 7px;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+#create-account-btn{
+    width: 30%;
+    margin: 20px auto;
+    background-color:rgb(234, 116, 181);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-weight: 550;
+    color: antiquewhite;
+    cursor: pointer;
+}
+
+/* #create-account-btn:hover{
+   color: rgb(176, 31, 159);
+} */
+
+.sign-up a p{
+    color: rgb(243, 149, 201);
+    padding: 8px;
+    width: 20%;
+    margin: auto;
+    border-radius: 5px;
+    background-color: antiquewhite;
+}
+.sign-up a p:hover{
+    text-decoration: underline;
+}
+
+.pwd-message {
+    font-size: medium;
+}
+
+@media screen and (max-width: 800px) {
+    .sign-up form h2 {
+        font-size: 25px;
+    }
+
+    #create-account-btn {
+        width: 40%;
+    }
+
+    .sign-up a p{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .sign-up form h2 {
+        font-size: 20px;
+    }
+
+    .sign-up form label {
+        font-size: 15px;
+    }
+
+    .sign-up form input {
+        font-size: 13px;
+    }
+
+    #create-account-btn {
+        width: 60%;
+    }
+
+    .sign-up a p{
+        width: 30%;
+        font-size: 14px;
+    }
+}

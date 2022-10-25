@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {Link, useNavigate} from 'react-router-dom';
+import './Registration.css'
 
 const Registration = ({addUser}) => {
     const navigate = useNavigate()
@@ -45,39 +46,40 @@ const Registration = ({addUser}) => {
         }
 
     return(
+        <div className="signup-container">
         <div className="sign-up">
         {/* logo */}
         <form onSubmit={handleSubmit}>
             <h2>Sign Up</h2>
             <label htmlFor="email">Email:</label>
             <input id="email" type="email" name="email" 
-            placeholder="email" value={newUser.email} required onChange={handleChange}/>
+            placeholder="Email" value={newUser.email} required onChange={handleChange}/>
 
             <label htmlFor="username">Username:</label>
             <input id="username" type="text" name="username" 
-            placeholder="username" value={newUser.username} required onChange={handleChange}/>
+            placeholder="Username" value={newUser.username} required onChange={handleChange}/>
 
-            <label htmlFor="password">Password (minimum 8 characters): </label>
+            <label htmlFor="password">Password (minimum 1 characters): </label>
             <input id="password" type="password" name="password" 
-            placeholder="Password" value={newUser.password} minLength="8" required onChange={handleChange}/>
+            placeholder="Password" value={newUser.password} minLength="1" required onChange={handleChange}/>
 
             <label htmlFor="confirm_password">Confirm Password: </label>
             <input id="confirm_password" type="password" name="confirmPassword" 
-            placeholder="Confirm Password" value={newUser.confirmPassword} minLength="8" 
+            placeholder="Confirm Password" value={newUser.confirmPassword} minLength="1" 
             required onChange={handleChange} onKeyUp={checkPassword}/>
             { newUser.confirmPassword !== "" ?
-                <>
-                {match? <p>Password matches</p> : <p>Password doesn't match</p>}
-                </>
+                <div className="pwd-message">
+                {match? <p>Passwords match ✅</p> : <p>Passwords don't match ❌</p>}
+                </div>
              : <p className="hidden"></p>}
 
             <input id="create-account-btn" type="submit" value="Create Account" disabled={newUser.confirmPassword !== '' && match? false: true}/>
 
-        
+            <Link to="/">
+                <p>Log in</p>
+            </Link>
         </form>
-        
-        <Link to="/">Log in</Link>
-
+        </div>
         </div>
     );
 

@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import UserContext from "../UserContext";
 import { Link, useNavigate } from 'react-router-dom'
+import './Login.css'
 
 const Login = ({fetchLogIn}) => {
     const navigate = useNavigate()
+    const {loggedInUser} = useContext(UserContext);
 
     const [user, setUser] = useState({
         username: "",
@@ -18,21 +21,29 @@ const Login = ({fetchLogIn}) => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        fetchLogIn(user)
-        setUser({
-            username: "",
-            password: ""
+        fetchLogIn(user).then(savedUser => {
+            if(savedUser != undefined && savedUser.username) {
+                setUser({
+                    username: "",
+                    password: ""
+                })
+                navigate('/chat')
+            }
         })
-        navigate('/chat')
     }
 
     return (
-        <div className="log-in">
-            <h2>Log In</h2>
+        <div className="login-container">
+        <div className="login">
             <form onSubmit={handleSubmit}>
+                <h2>Log In</h2>
+                {loggedInUser != undefined && loggedInUser.message ? 
+                <p className="display">{loggedInUser.message}</p> :
+                <p className="hidden"></p>
+                }
                 <label htmlFor="username">Username or Email:</label>
                 <input type="text"
-                id="log-in-username"
+                id="login-username"
                 name="username"
                 placeholder="Username or Email"
                 onChange={handleChange}
@@ -40,15 +51,18 @@ const Login = ({fetchLogIn}) => {
 
                 <label htmlFor="password">Password:</label>
                 <input type="password"
-                id="log-in-password"
+                id="login-password"
                 name="password"
                 placeholder="Password"
                 onChange={handleChange}
                 />
 
                 <input id="login-btn" type="submit" value="Login" />
+                <Link to="/signup">
+                    <p>Sign up</p>
+                </Link>
             </form>
-            <Link to="/signup">Sign up</Link>
+        </div>
         </div>
     )
 }

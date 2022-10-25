@@ -1,0 +1,22 @@
+body, input, button {
+    /* font-family: 'Varela Round', sans-serif; */
+    font-family: 'Noto Sans', sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+p {
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
