@@ -38,7 +38,8 @@ const Login = ({fetchLogIn}) => {
             <form onSubmit={handleSubmit}>
                 <h2>Log In</h2>
                 {loggedInUser != undefined && loggedInUser.message ? 
-                <p className="display">{loggedInUser.message}</p> :
+                <p className="display">{loggedInUser.message}</p>
+                :
                 <p className="hidden"></p>
                 }
                 <label htmlFor="username">Username or Email:</label>
@@ -58,7 +59,7 @@ const Login = ({fetchLogIn}) => {
                 />
 
                 <input id="login-btn" type="submit" value="Login" />
-                <Link to="/signup">
+                <Link to="signup">
                     <p>Sign up</p>
                 </Link>
             </form>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import FriendsList from "../components/FriendsList";
 import Chat from "../components/Chat";
+import Search from "../components/Search";
 import UserContext from "../UserContext";
 // import { useUser } from "./AppContainer";
 
@@ -46,9 +47,10 @@ const ChatContainer = ({users, socket}) => {
     console.log(currentChat);
 
     return currentChat.length != 0 ? (
-        <>  
-            <p>You're logged in as: {loggedInUser.username}</p>
-            {/* <Search/> */}
+        <>
+
+        <p>You are logged in as {loggedInUser.username}</p>
+            <Search />
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
             <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/>
