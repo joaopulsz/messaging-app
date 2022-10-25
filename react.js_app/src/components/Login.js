@@ -1,8 +1,10 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import UserContext from "../UserContext";
 import { Link, useNavigate } from 'react-router-dom'
 
 const Login = ({fetchLogIn}) => {
     const navigate = useNavigate()
+    const {loggedInUser, setLoggedInUser} = useContext(UserContext);
 
     const [user, setUser] = useState({
         username: "",
@@ -18,17 +20,25 @@ const Login = ({fetchLogIn}) => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        fetchLogIn(user)
-        setUser({
-            username: "",
-            password: ""
+        fetchLogIn(user).then(savedUser => {
+            console.log(savedUser)
+            if(savedUser != undefined && savedUser.username) {
+                setUser({
+                    username: "",
+                    password: ""
+                })
+                navigate('/account')
+            }
         })
-        navigate('/account')
     }
 
     return (
         <div className="log-in">
             <h2>Log In</h2>
+            {loggedInUser != undefined && loggedInUser.message ? 
+            <p>{loggedInUser.message}</p> :
+            <p className="hidden"></p>
+            }
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username or Email:</label>
                 <input type="text"

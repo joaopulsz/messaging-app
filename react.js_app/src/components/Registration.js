@@ -57,13 +57,13 @@ const Registration = ({addUser}) => {
             <input id="username" type="text" name="username" 
             placeholder="username" value={newUser.username} required onChange={handleChange}/>
 
-            <label htmlFor="password">Password (minimum 8 characters): </label>
+            <label htmlFor="password">Password (minimum 1 characters): </label>
             <input id="password" type="password" name="password" 
-            placeholder="Password" value={newUser.password} minLength="8" required onChange={handleChange}/>
+            placeholder="Password" value={newUser.password} minLength="1" required onChange={handleChange}/>
 
             <label htmlFor="confirm_password">Confirm Password: </label>
             <input id="confirm_password" type="password" name="confirmPassword" 
-            placeholder="Confirm Password" value={newUser.confirmPassword} minLength="8" 
+            placeholder="Confirm Password" value={newUser.confirmPassword} minLength="1" 
             required onChange={handleChange} onKeyUp={checkPassword}/>
             { newUser.confirmPassword !== "" ?
                 <>

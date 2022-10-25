@@ -46,7 +46,7 @@ const login = (req, res) => {
                             // token
                         )
                     } else {
-                        res.status(400).json({
+                        res.status(401).json({
                             message: "Password does not match."
                         })
                     }
