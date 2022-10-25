@@ -47,13 +47,13 @@ const login = (req, res) => {
                         )
                     } else {
                         res.status(401).json({
-                            message: "Password does not match."
+                            message: "Password does not match"
                         })
                     }
                 })
             } else {
                 res.status(404).json({
-                    message: 'No user found.'
+                    message: 'No user found'
                 })
             }
         })
