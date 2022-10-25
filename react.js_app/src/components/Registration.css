@@ -35,6 +35,7 @@ body{
     border-radius: 10px;
     font-weight: 550;
     color: antiquewhite;
+    cursor: pointer;
 }
 
 /* #create-account-btn:hover{
@@ -55,4 +56,41 @@ body{
 
 .pwd-message {
     font-size: medium;
+}
+
+@media screen and (max-width: 800px) {
+    .sign-up form h2 {
+        font-size: 25px;
+    }
+
+    #create-account-btn {
+        width: 40%;
+    }
+
+    .sign-up a p{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .sign-up form h2 {
+        font-size: 20px;
+    }
+
+    .sign-up form label {
+        font-size: 15px;
+    }
+
+    .sign-up form input {
+        font-size: 13px;
+    }
+
+    #create-account-btn {
+        width: 60%;
+    }
+
+    .sign-up a p{
+        width: 30%;
+        font-size: 14px;
+    }
 }
