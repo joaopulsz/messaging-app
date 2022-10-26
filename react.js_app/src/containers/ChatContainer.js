@@ -6,7 +6,7 @@ import UserContext from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import './ChatContainer.css'
 
-const ChatContainer = ({users, socket}) => {
+const ChatContainer = ({users, socket, fetchChats}) => {
 
     const [friends, setFriends] = useState([]);
     const {loggedInUser, setLoggedInUser, chats} = useContext(UserContext);
@@ -16,13 +16,6 @@ const ChatContainer = ({users, socket}) => {
     const [currentChat, setCurrentChat] = useState([]);
 
     const filteredChats = chats.filter(chat => {
-        // const chats = [];
-        // chat.users.forEach(user => {
-        //     if (user.id === loggedInUser.id) {
-        //         chats.push(chat);
-        //     }
-        // })
-        // return chats;
         return chat.users.map(user => user._id === loggedInUser._id)
     })
 
@@ -35,6 +28,12 @@ const ChatContainer = ({users, socket}) => {
         const friendData = await response.json();
         setLoggedInUser(friendData);
         setFriends(friendData.friends)
+        const params = {
+            user1_id: loggedInUser._id,
+            user2_id: friend._id
+        }
+        socket.emit("create_chat", params)
+        fetchChats()
     }
 
     const deleteFriend = async (friend) => {
@@ -65,8 +64,6 @@ const ChatContainer = ({users, socket}) => {
         setLoggedInUser()
         navigate('/')
     }
-
-    console.log(currentChat);
 
     const updateChat = (newMessage) => {
         setCurrentChat({...currentChat, messages: [...currentChat.messages, newMessage]})

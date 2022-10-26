@@ -46,7 +46,7 @@ const AppContainer = () => {
         // if logged in, open chat page
         <UserContext.Provider value={{loggedInUser, users, chats, setLoggedInUser}}>
             <Routes>
-                <Route path='/chat' element={<ChatContainer socket={socket} />}/>
+                <Route path='/chat' element={<ChatContainer socket={socket} fetchChats={fetchChats}/>}/>
             </Routes>
         </UserContext.Provider>
         // else, 
