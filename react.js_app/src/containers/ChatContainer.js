@@ -6,14 +6,17 @@ import UserContext from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import './ChatContainer.css'
 
-const ChatContainer = ({users, socket, fetchChats}) => {
+const ChatContainer = ({socket, fetchChats}) => {
 
     const [friends, setFriends] = useState([]);
-    const {loggedInUser, setLoggedInUser, chats} = useContext(UserContext);
+    const {loggedInUser, setLoggedInUser, chats, users} = useContext(UserContext);
 
     const navigate = useNavigate()
     
-    const [currentChat, setCurrentChat] = useState();
+    const [currentChat, setCurrentChat] = useState({
+        users: [],
+        messages: []
+    });
     const [isDelete, setIsDelete] = useState(false)
 
     const filteredChats = chats.filter(chat => {
@@ -81,7 +84,10 @@ const ChatContainer = ({users, socket, fetchChats}) => {
 
     useEffect(() => {
         if(isDelete){
-            setCurrentChat()
+            setCurrentChat({
+                users: [],
+                messages: []
+            })
         }
     },[isDelete])
 
@@ -95,9 +101,11 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     }
 
     const updateChat = (newMessage) => {
-        setCurrentChat({...currentChat, messages: [...currentChat.messages, newMessage]})
+        const chatId = chats.findIndex(chat => chat._id === currentChat._id)
+        const chat = chats[chatId]
+        setCurrentChat({...chat, messages: [...chat.messages, newMessage]})
     }
-    
+
     return (
         <>
             <header className="chat-header">
@@ -112,7 +120,7 @@ const ChatContainer = ({users, socket, fetchChats}) => {
                     <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat} deleteFriend={deleteFriend} />
                 </section>
                 <section>
-                    {currentChat && currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} updateChat={updateChat}/> : <></>}  
+                    {currentChat && currentChat.users.length > 0 ? <Chat socket={socket} currentChat={currentChat} updateChat={updateChat}/> : <></>}  
                 </section>
             </main>        
         </>
