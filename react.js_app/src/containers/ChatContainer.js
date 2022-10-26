@@ -42,6 +42,7 @@ const ChatContainer = ({users, socket}) => {
    
     const currentFriendChat = (friendChat) => {
         setCurrentChat(friendChat[0]);
+        socket.emit("join_chat", currentChat._id);
     }
 
     console.log(currentChat);

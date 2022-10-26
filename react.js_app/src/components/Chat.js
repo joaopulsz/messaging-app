@@ -29,11 +29,11 @@ const Chat = ({currentChat, setCurrentChat, socket}) => {
 
     useEffect(() => {     
         socket.on("receive_message", (message) => {
-            setCurrentChat((currentChat) => [...currentChat, message])
+            setCurrentChat(oldChat => {
+                return {...oldChat, messages: [...oldChat.messages, message]}
         })
+    })
     }, [socket]);
-
-    
 
     return (
         <div id="chat-box">

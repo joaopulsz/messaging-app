@@ -39,7 +39,7 @@ const Chat = require('./models/Chat');
 
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
-
+    let chatId;
     socket.on("create_chat", ({ user1_id, user2_id}) => {
         const chat = new Chat({
             users: [user1_id, user2_id],
@@ -48,25 +48,26 @@ io.on("connection", (socket) => {
         chat.save().then(res => io.emit('chat_created', res));
     })
     
-    socket.on("join_chat", ({chat_id}) => {
+    socket.on("join_chat", (chat_id) => {
         socket.join(chat_id);
-        socket.chat = chat_id;
+        chatId = chat_id;
     });
 
-    socket.on("change_chat", ({chat_id}) => {
-        socket.leave(socket.chat);
+    socket.on("change_chat", (chat_id) => {
+        socket.leave(chatId);
         socket.join(chat_id);
     })
 
     socket.on("send_message", async ({message, user_id, chat_id, created}) => {
-        let chat = await Chat.findById(chat_id)
-        chat.messages.push({
+        const chat = await Chat.findById(chat_id)
+        const newMessage = {
             message: message,
             user: user_id,
             created: created
-        })
+        } 
+        chat.messages.push(newMessage)
         chat.save()
-        socket.to(chat_id).emit("receive_message", message);
+        socket.to(chat_id).emit("receive_message", newMessage);
     });
 
     socket.on("disconnect", () => {
