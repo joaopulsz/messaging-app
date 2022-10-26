@@ -53,7 +53,6 @@ const Search = ({filteredFun, addFriend}) => {
         if(inputValue === "") filteredFun(loggedInUser.friends)
         const friend = filteredFriends(inputValue)
         if(isFindFriend() && friend){
-            console.log(friend);
             filteredFun([friend])
         }
         setInputValue("")

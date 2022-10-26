@@ -124,9 +124,7 @@ const deleteFriend = async (req, res) => {
         if (user && loggedInUser) {
             loggedInUser.friends.splice(loggedInUser.friends.findIndex(friend => friend._id.equals(user._id)), 1);
             loggedInUser.save();
-            console.log(loggedInUser)
             user.friends.splice(user.friends.findIndex(friend => friend._id.equals(user._id)), 1);
-            console.log(user);
             user.save();
             res.status(200).json(loggedInUser)
         }

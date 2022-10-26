@@ -97,7 +97,7 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     const updateChat = (newMessage) => {
         setCurrentChat({...currentChat, messages: [...currentChat.messages, newMessage]})
     }
-console.log(currentChat,"currentChat")
+    
     return (
         <>
             <header className="chat-header">
