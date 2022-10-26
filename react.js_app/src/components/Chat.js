@@ -3,8 +3,7 @@ import { useEffect, useContext, useState} from "react";
 
 const Chat = ({currentChat, updateChat, socket}) => {
 
-    console.log(currentChat);
-    const {loggedInUser} = useContext(UserContext);
+    const {users, loggedInUser} = useContext(UserContext);
 
     const [messageInput, setMessageInput] = useState("");
 
@@ -25,6 +24,11 @@ const Chat = ({currentChat, updateChat, socket}) => {
         setMessageInput("");
     }
 
+    const findUsername = () => {
+        const chatUser = currentChat.users[0] === loggedInUser._id ? currentChat.users[1] : currentChat.users[0];
+        return users.find(user => user._id === chatUser).username
+    }
+
     useEffect(() => {  
         console.log("useEffect from Chat");   
         socket.on("receive_message", (message) => {
@@ -37,7 +41,7 @@ const Chat = ({currentChat, updateChat, socket}) => {
         <div id="chat-box">
 
             {/* Will currently only work for 2 people*/}
-            <h2>{currentChat.users[0] === loggedInUser._id ? currentChat.users[1] : currentChat.users[0]}</h2> 
+            <h2>{findUsername()}</h2> 
         
             <div id="message-box">
               {currentChat.messages.map((message, index) => {

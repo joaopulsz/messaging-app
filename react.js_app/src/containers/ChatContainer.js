@@ -13,7 +13,7 @@ const ChatContainer = ({users, socket, fetchChats}) => {
 
     const navigate = useNavigate()
     
-    const [currentChat, setCurrentChat] = useState([]);
+    const [currentChat, setCurrentChat] = useState();
 
     const filteredChats = chats.filter(chat => {
         return chat.users.map(user => user._id === loggedInUser._id)
