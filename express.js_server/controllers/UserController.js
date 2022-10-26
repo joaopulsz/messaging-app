@@ -92,9 +92,20 @@ const addFriend = async (req, res) => {
         let loggedInUser = await User.findById(req.params.id).populate('friends', '_id username');
         const user = await User.findOne({ $or: [{ email: username }, { username: username }] }).populate('friends', '_id username');
         if (user && loggedInUser) {
-            loggedInUser.friends.push(user._id);
+            if((
+                loggedInUser.friends.length !== 0 &&
+                loggedInUser.friends.findIndex( friend => friend._id.equals(user._id)) !== -1
+                ) || (
+                user.friends.length !== 0 && 
+                user.friends.findIndex( friend => friend._id.equals(loggedInUser._id)) !== -1
+            )){
+                return res.status(400).json({
+                    message: "Already added!"
+                })
+            }
+            loggedInUser.friends.push(user);
             loggedInUser.save();
-            user.friends.push(loggedInUser._id);
+            user.friends.push(loggedInUser);
             user.save();
             res.status(200).json(loggedInUser)
         }
@@ -122,6 +133,29 @@ const deleteFriend = async (req, res) => {
         res.status(400).json({
             message: "User not found."
         })
+    }
+}
+
+const checkUser = (req, res, next) => {
+    try {
+        if((
+            loggedInUser.friends.length !== 0 &&
+            loggedInUser.friends.findIndex( friend => friend._id.equals(user._id)) !== -1
+            ) || (
+            user.friends.length !== 0 && 
+            user.friends.findIndex( friend => friend._id.equals(loggedInUser._id)) !== -1
+        )){
+            return res.status(400).json({
+                message: "Already added!"
+            })
+        }
+        loggedInUser.friends.push(user._id);
+        loggedInUser.save();
+        user.friends.push(loggedInUser._id);
+        user.save();
+        res.status(200).json(loggedInUser)
+    } catch (err) {
+        return res.status(500).json({message: err.message})
     }
 }
 

@@ -26,6 +26,7 @@ const ChatContainer = ({users, socket, fetchChats}) => {
             body: JSON.stringify(friend)
         })
         const friendData = await response.json();
+        if(friendData && friendData.message) return
         setLoggedInUser(friendData);
         setFriends(friendData.friends)
         const params = {
@@ -37,6 +38,7 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     }
 
     const deleteFriend = async (friend) => {
+        console.log(friend, "friend");
         const response = await fetch(`http://localhost:4000/deletefriend/${loggedInUser._id}`, {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
@@ -44,7 +46,21 @@ const ChatContainer = ({users, socket, fetchChats}) => {
         })
         const updatedUser = await response.json();
         setLoggedInUser(updatedUser);
+        console.log(updatedUser.friends)
         setFriends(updatedUser.friends)
+        deleteChat(friend)
+        fetchChats()
+    }
+
+    const deleteChat = async friend => {
+        const chat = filteredChats.find(chat => {
+            return chat.users.findIndex(user => user._id === friend._id) !== -1
+        })
+        console.log(chat, "chat", chat._id);
+        await fetch(`http://localhost:4000/chat/${chat._id}`, {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"}
+        })
     }
 
     useEffect (() => {

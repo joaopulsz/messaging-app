@@ -47,9 +47,7 @@ const deleteChat = async (req, res) => {
     try {
         chat = await Chat.findById(chatId);
         chat.remove();
-        res.status(410).json({
-            message: 'Chat deleted successfully.'
-        });
+        res.status(410).json();
     } catch (err){
         res.status(404).json({
             message: 'Chat not found'
