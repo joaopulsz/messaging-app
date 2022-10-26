@@ -16,7 +16,9 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     const [currentChat, setCurrentChat] = useState([]);
 
     const filteredChats = chats.filter(chat => {
-        return chat.users.map(user => user._id === loggedInUser._id)
+        for (let user of chat.users) {
+            return user === loggedInUser._id;
+        }
     })
 
     const addFriend = async (friend) => {
