@@ -28,13 +28,16 @@ const FriendsList = ({friends, filteredChats, currentFriendChat, deleteFriend}) 
     const friendsList = filteredFriends.map(friend => {
         console.log("FRIEND!", filteredChats);
         if (friend) {
-
-            const friendChat = filteredChats.map(chat => {
-                if((chat.users[0] === friend._id || chat.users[1] === friend._id) && 
-                (chat.users[0] === loggedInUser._id || chat.users[1] === loggedInUser._id)) {
-                    return chat;
+            let friendChat;
+            for(let chat of filteredChats) {
+                if((chat.users[0] === loggedInUser._id || chat.users[1] === loggedInUser._id) && 
+                (chat.users[0] === friend._id || chat.users[1] === friend._id)) {
+                    friendChat = chat;
                 }
-            })
+            }
+            // const friendChat = filteredChats.map(chat => {
+                
+            // })
             
             
             return (

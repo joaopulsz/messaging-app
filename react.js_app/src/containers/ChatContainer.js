@@ -17,6 +17,8 @@ const ChatContainer = ({users, socket, fetchChats}) => {
 
     const filteredChats = chats.filter(chat => {
         for (let user of chat.users) {
+            console.log(user);
+            console.log(loggedInUser);
             return user === loggedInUser._id;
         }
     })
@@ -56,8 +58,8 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     const currentFriendChat = (friendChat) => {
         console.log(friendChat);
         // console.log(friendChat[1]);
-        setCurrentChat(friendChat[0]);
-        socket.emit("join_chat", friendChat[0]._id);
+        setCurrentChat(friendChat);
+        socket.emit("join_chat", friendChat._id);
     }
 
     const filteredFriends = searchedUser => {
