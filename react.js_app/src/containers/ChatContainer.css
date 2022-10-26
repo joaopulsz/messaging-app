@@ -1,0 +1,9 @@
+.chat-main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-around;
+}

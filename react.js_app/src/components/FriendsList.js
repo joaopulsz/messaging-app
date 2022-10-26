@@ -20,7 +20,11 @@ const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
             }
         })
         if (friend) {
-            return <li onClick={() => currentFriendChat(friendChat)}>{friend.username}</li>;
+            return (
+            <li onClick={() => currentFriendChat(friendChat)}>
+                <p>{friend.username}</p>
+                <button>Delete Friend</button>
+            </li>);
         }
     });
         

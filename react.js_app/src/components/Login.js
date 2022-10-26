@@ -59,6 +59,7 @@ const Login = ({fetchLogIn}) => {
                 />
 
                 <input id="login-btn" type="submit" value="Log in" />
+
                 <Link to="signup">
                     <p>Sign up</p>
                 </Link>

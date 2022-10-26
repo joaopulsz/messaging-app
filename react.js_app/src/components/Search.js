@@ -3,29 +3,18 @@ import UserContext from "../UserContext";
 import { Autocomplete } from '@mui/material'
 import { TextField } from "@mui/material";
 
-const Search = ({filteredFun}) => {
+const Search = ({filteredFun, addFriend}) => {
     const {loggedInUser, users} = useContext(UserContext);
     const [searchedUser, setSearchedUser] = useState([])
     const [isFriend, setIsFriend] = useState(false)
     const [inputValue, setInputValue] = useState("")
 
-    const filteredUser = searchedUser => users.find(user => {
-            if(user.username.toLowerCase().includes(searchedUser.toLowerCase())){
+    const filteredUser = () => users.find(user => {
+            if(user.username.toLowerCase().includes(inputValue.toLowerCase())){
                 setSearchedUser(user)
                 return user
             }
         })
-
-    const handleChange = event => {
-        const searchedUser = filteredUser(event.target.value)
-        setSearchedUser(searchedUser)
-        if(event.target.value === "") setSearchedUser()
-    }
-    const handleKeyDown = event => {
-        if(loggedInUser.friends.find(user => user.username.toLowerCase() === searchedUser.username.toLowerCase())){
-            setIsFriend(true)
-        }
-    }
 
     const filteredFriends = username => {
         return loggedInUser.friends.find(friendId => {
@@ -58,6 +47,13 @@ const Search = ({filteredFun}) => {
         }
     }
 
+    const handleClickToAddFriend = () => {
+        if(isFindFriend() == undefined){
+            const user = filteredUser()
+            addFriend(user)
+        }
+    }
+
 return(
     <div className="search">
         <Autocomplete
@@ -79,7 +75,10 @@ return(
                 />
               )}
         />
-        <button onClick={handleSubmit}>Search</button>
+        <div className="right">
+            <button onClick={handleSubmit}>Search</button>
+            <button onClick={handleClickToAddFriend}>Add Friend</button>
+        </div>
     </div>
 )
 

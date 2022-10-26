@@ -87,7 +87,7 @@ const getUserById = async (req, res) => {
 const addFriend = async (req, res) => {
     
     let username = req.body.username;
-    
+
     try {
         let loggedInUser = await User.findById(req.params.id);
         const user = await User.findOne({ $or: [{ email: username }, { username: username }] })
@@ -96,12 +96,9 @@ const addFriend = async (req, res) => {
             loggedInUser.save();
             user.friends.push(loggedInUser);
             user.save();
-            res.status(200).json({
-                message: "Friend successfully added."
-            })
+            res.status(200).json(loggedInUser)
         }
     } catch (err) {
-        console.log(loggedInUser)
         res.status(400).json({
             message: "User not found."
         })

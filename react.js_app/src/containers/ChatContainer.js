@@ -4,7 +4,7 @@ import Chat from "../components/Chat";
 import Search from "../components/Search";
 import UserContext from "../UserContext";
 import { useNavigate } from "react-router-dom";
-// import { useUser } from "./AppContainer";
+import './ChatContainer.css'
 
 const ChatContainer = ({users, socket}) => {
 
@@ -26,16 +26,16 @@ const ChatContainer = ({users, socket}) => {
         return chat.users.map(user => user._id === loggedInUser._id)
     })
 
-    // const addFriend = async (friend) => {
-    //     const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser.id}`, {
-    //         method: "PATCH",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify(friend)
-    //     }) 
-    //     const friendData = await response.json();
-    //     // come back to when logged in user is set up
-    //     setLoggedInUser();
-    // }
+    const addFriend = async (friend) => {
+        const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser._id}`, {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(friend)
+        })
+        const friendData = await response.json();
+        setLoggedInUser(friendData);
+        setFriends(friendData.friends)
+    }
 
     useEffect (() => {
          setFriends(loggedInUser.friends);
@@ -63,15 +63,15 @@ const ChatContainer = ({users, socket}) => {
                 <button onClick={logOut}>Log Out</button>
             </header>
             <main className="chat-main">
-                <section>
-                <Search filteredFun={filteredFriends} />
-                {/* <AddFriend users={users}/> */}
-                <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
+                <section id="friends-list-section">
+                    <Search filteredFun={filteredFriends} addFriend={addFriend} />
+                    {/* <AddFriend users={users}/> */}
+                    <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
                 </section>
                 <section>
                     {currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}
                 </section>
-            </main>         
+            </main>
         </>
     )
 }
