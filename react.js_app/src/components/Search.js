@@ -9,8 +9,12 @@ const Search = ({filteredFun, addFriend}) => {
     const [isFriend, setIsFriend] = useState(false)
     const [inputValue, setInputValue] = useState("")
 
+    const optionsObjectArr = users.filter(user => user.username.toLowerCase() !== loggedInUser.username.toLowerCase())
+
+    const options = optionsObjectArr.map(user => user.username)
+
     const filteredUser = () => users.find(user => {
-            if(user.username.toLowerCase().includes(inputValue.toLowerCase())){
+            if(user.username.toLowerCase() === (inputValue.toLowerCase())){
                 setSearchedUser(user)
                 return user
             }
@@ -19,7 +23,8 @@ const Search = ({filteredFun, addFriend}) => {
     const filteredFriends = username => {
         return loggedInUser.friends.find(friendId => {
             const friend = users.find(user => user._id === friendId)
-            if(friend.username.toLowerCase().includes(username.toLowerCase())){
+            if(friend.username.toLowerCase() === username.toLowerCase()){
+                console.log(friend);
                 setSearchedUser(friend)
                 return friend
             }
@@ -43,7 +48,7 @@ const Search = ({filteredFun, addFriend}) => {
         if(inputValue === "") filteredFun(loggedInUser.friends)
         const friend = filteredFriends(inputValue)
         if(isFindFriend() && friend){
-            filteredFun([searchedUser._id])
+            filteredFun([friend])
         }
     }
 
@@ -59,7 +64,7 @@ return(
         <Autocomplete
             freeSolo
             disableClearable
-            options={users.map(user => user.username)}
+            options={options}
             inputValue={inputValue}
             onInputChange={(event, newInputValue) => {
             setInputValue(newInputValue);

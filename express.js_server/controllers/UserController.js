@@ -92,9 +92,9 @@ const addFriend = async (req, res) => {
         let loggedInUser = await User.findById(req.params.id);
         const user = await User.findOne({ $or: [{ email: username }, { username: username }] })
         if (user && loggedInUser) {
-            loggedInUser.friends.push(user);
+            loggedInUser.friends.push(user._id);
             loggedInUser.save();
-            user.friends.push(loggedInUser);
+            user.friends.push(loggedInUser._id);
             user.save();
             res.status(200).json(loggedInUser)
         }
@@ -116,9 +116,7 @@ const deleteFriend = async (req, res) => {
             loggedInUser.save();
             user.friends.splice(user.friends.indexOf(loggedInUser), 1);
             user.save();
-            res.status(200).json({
-                message: "Friend successfully removed."
-            })
+            res.status(200).json(loggedInUser)
         }
     } catch (err) {
         res.status(400).json({

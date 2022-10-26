@@ -37,6 +37,17 @@ const ChatContainer = ({users, socket}) => {
         setFriends(friendData.friends)
     }
 
+    const deleteFriend = async (friend) => {
+        const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser._id}`, {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(friend)
+        })
+        const updatedUser = await response.json();
+        setLoggedInUser(updatedUser);
+        setFriends(updatedUser.friends)
+    }
+
     useEffect (() => {
          setFriends(loggedInUser.friends);
     }, [])
@@ -66,7 +77,8 @@ const ChatContainer = ({users, socket}) => {
                 <section id="friends-list-section">
                     <Search filteredFun={filteredFriends} addFriend={addFriend} />
                     {/* <AddFriend users={users}/> */}
-                    <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
+                    <h3>Friends List</h3>
+                    <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat} deleteFriend={deleteFriend} />
                 </section>
                 <section>
                     {currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}

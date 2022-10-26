@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import UserContext from "../UserContext";
 
-const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
+const FriendsList = ({friends, filteredChats, currentFriendChat, deleteFriend}) => {
 
     const {users} = useContext(UserContext);
     
@@ -13,6 +13,10 @@ const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
         })
     })
 
+    const handleClick = friend => {
+        deleteFriend(friend)
+    }
+
     const friendsList = filteredFriends.flat().map(friend => {
         const friendChat = filteredChats.map(chat => {
             if(chat.users[0] || chat.users[1] === friend) {
@@ -21,9 +25,9 @@ const FriendsList = ({friends, filteredChats, currentFriendChat}) => {
         })
         if (friend) {
             return (
-            <li onClick={() => currentFriendChat(friendChat)}>
+            <li key={friend._id} onClick={() => currentFriendChat(friendChat)}>
                 <p>{friend.username}</p>
-                <button>Delete Friend</button>
+                <button onClick={() => handleClick(friend)}>Delete Friend</button>
             </li>);
         }
     });
