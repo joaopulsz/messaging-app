@@ -18,9 +18,11 @@ const FriendsList = ({friends, filteredChats, currentFriendChat, deleteFriend}) 
     }
 
     const friendsList = filteredFriends.flat().map(friend => {
+        // console.log("FRIEND!", friend);
         const friendChat = filteredChats.map(chat => {
-            if(chat.users[0] || chat.users[1] === friend) {
+            if(chat.users[0] || chat.users[1] === friend._id) {
                 return chat;
+                
             }
         })
         if (friend) {

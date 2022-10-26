@@ -52,6 +52,8 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     }, [loggedInUser.friends])
    
     const currentFriendChat = (friendChat) => {
+        console.log(friendChat);
+        // console.log(friendChat[1]);
         setCurrentChat(friendChat[0]);
         socket.emit("join_chat", friendChat[0]._id);
     }
