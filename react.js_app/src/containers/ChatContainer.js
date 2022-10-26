@@ -50,7 +50,7 @@ const ChatContainer = ({users, socket}) => {
 
     useEffect (() => {
          setFriends(loggedInUser.friends);
-    }, [])
+    }, [loggedInUser.friends])
    
     const currentFriendChat = (friendChat) => {
         setCurrentChat(friendChat[0]);
@@ -81,7 +81,7 @@ const ChatContainer = ({users, socket}) => {
                     <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat} deleteFriend={deleteFriend} />
                 </section>
                 <section>
-                    {currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}
+                    {currentChat && currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}
                 </section>
             </main>
         </>

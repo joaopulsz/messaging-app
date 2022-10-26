@@ -1,4 +1,4 @@
-import { Children, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import UserContext from "../UserContext";
 import { Autocomplete } from '@mui/material'
 import { TextField } from "@mui/material";
@@ -17,6 +17,8 @@ const Search = ({filteredFun, addFriend}) => {
             if(user.username.toLowerCase() === (inputValue.toLowerCase())){
                 setSearchedUser(user)
                 return user
+            }else{
+                return null
             }
         })
 
@@ -27,6 +29,8 @@ const Search = ({filteredFun, addFriend}) => {
                 console.log(friend);
                 setSearchedUser(friend)
                 return friend
+            }else{
+                return null
             }
         })
     }
@@ -36,6 +40,8 @@ const Search = ({filteredFun, addFriend}) => {
             const isFind = users.find(user => {
                 if(user._id === friendId){
                     return user.username.toLowerCase() === inputValue.toLowerCase()
+                }else{
+                    return false
                 }
             })
             setIsFriend(isFind)
@@ -50,12 +56,14 @@ const Search = ({filteredFun, addFriend}) => {
         if(isFindFriend() && friend){
             filteredFun([friend])
         }
+        setInputValue("")
     }
 
     const handleClickToAddFriend = () => {
-        if(isFindFriend() == undefined){
+        if(isFindFriend() === undefined){
             const user = filteredUser()
             addFriend(user)
+            setInputValue("")
         }
     }
 

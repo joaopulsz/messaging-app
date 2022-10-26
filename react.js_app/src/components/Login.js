@@ -22,7 +22,7 @@ const Login = ({fetchLogIn}) => {
     const handleSubmit = event => {
         event.preventDefault()
         fetchLogIn(user).then(savedUser => {
-            if(savedUser != undefined && savedUser.username) {
+            if(savedUser !== undefined && savedUser.username) {
                 setUser({
                     username: "",
                     password: ""
@@ -37,7 +37,7 @@ const Login = ({fetchLogIn}) => {
         <div className="login">
             <form onSubmit={handleSubmit}>
                 <h2>Log In</h2>
-                {loggedInUser != undefined && loggedInUser.message ? 
+                {loggedInUser !== undefined && loggedInUser.message ? 
                 <p className="display">{loggedInUser.message}</p>
                 :
                 <p className="hidden"></p>
