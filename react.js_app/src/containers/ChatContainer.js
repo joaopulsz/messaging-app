@@ -3,14 +3,15 @@ import FriendsList from "../components/FriendsList";
 import Chat from "../components/Chat";
 import Search from "../components/Search";
 import UserContext from "../UserContext";
+import { useNavigate } from "react-router-dom";
 // import { useUser } from "./AppContainer";
 
 const ChatContainer = ({users, socket}) => {
 
     const [friends, setFriends] = useState([]);
     const {loggedInUser, setLoggedInUser, chats} = useContext(UserContext);
-    // console.log(loggedInUser);
 
+    const navigate = useNavigate()
     
     const [currentChat, setCurrentChat] = useState([]);
 
@@ -48,15 +49,29 @@ const ChatContainer = ({users, socket}) => {
         setFriends(searchedUser)
     }
 
+    const logOut = () => {
+        setLoggedInUser()
+        navigate('/')
+    }
+
     console.log(currentChat);
 
     return (
         <>
-            <p>You are logged in as {loggedInUser.username}</p>
-            <Search filteredFun={filteredFriends} />
-            {/* <AddFriend users={users}/> */}
-            <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-            {currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}          
+            <header className="chat-header">
+                <p>You are logged in as {loggedInUser.username}</p>
+                <button onClick={logOut}>Log Out</button>
+            </header>
+            <main className="chat-main">
+                <section>
+                <Search filteredFun={filteredFriends} />
+                {/* <AddFriend users={users}/> */}
+                <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
+                </section>
+                <section>
+                    {currentChat.length !== 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}
+                </section>
+            </main>         
         </>
     )
 }

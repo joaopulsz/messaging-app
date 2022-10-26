@@ -58,7 +58,7 @@ const Login = ({fetchLogIn}) => {
                 onChange={handleChange}
                 />
 
-                <input id="login-btn" type="submit" value="Login" />
+                <input id="login-btn" type="submit" value="Log in" />
                 <Link to="signup">
                     <p>Sign up</p>
                 </Link>
