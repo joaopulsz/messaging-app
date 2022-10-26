@@ -9,7 +9,7 @@ const AppContainer = () => {
     const [loggedInUser, setLoggedInUser] = useState();
     const [users, setUsers] = useState([]);
     const [chats, setChats] = useState([]);
-
+    
     const socket = io.connect("http://localhost:4000");
 
     const fetchUsers = async () => {

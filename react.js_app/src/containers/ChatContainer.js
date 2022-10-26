@@ -42,10 +42,12 @@ const ChatContainer = ({users, socket}) => {
    
     const currentFriendChat = (friendChat) => {
         setCurrentChat(friendChat[0]);
-        socket.emit("join_chat", currentChat._id);
+        socket.emit("join_chat", friendChat[0]._id);
     }
 
-    console.log(currentChat);
+    const updateChat = (newMessage) => {
+        setCurrentChat({...currentChat, messages: [...currentChat.messages, newMessage]})
+    }
 
     return (
         <>
@@ -53,7 +55,7 @@ const ChatContainer = ({users, socket}) => {
             <Search />
             {/* <AddFriend users={users}/> */}
             <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat}/>
-            {currentChat.length != 0 ? <Chat socket={socket} currentChat={currentChat} setCurrentChat={setCurrentChat}/> : <></>}          
+            {currentChat.length != 0 ? <Chat socket={socket} currentChat={currentChat} updateChat={updateChat}/> : <></>}          
         </>
     )
 }

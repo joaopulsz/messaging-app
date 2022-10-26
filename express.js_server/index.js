@@ -49,6 +49,7 @@ io.on("connection", (socket) => {
     })
     
     socket.on("join_chat", (chat_id) => {
+        console.log("joined chat", chat_id);
         socket.join(chat_id);
         chatId = chat_id;
     });
@@ -59,6 +60,7 @@ io.on("connection", (socket) => {
     })
 
     socket.on("send_message", async ({message, user_id, chat_id, created}) => {
+        console.log(message, user_id, chat_id, created);
         const chat = await Chat.findById(chat_id)
         const newMessage = {
             message: message,
@@ -67,6 +69,7 @@ io.on("connection", (socket) => {
         } 
         chat.messages.push(newMessage)
         chat.save()
+        // newMessage.chat_id = chat_id;
         socket.to(chat_id).emit("receive_message", newMessage);
     });
 
