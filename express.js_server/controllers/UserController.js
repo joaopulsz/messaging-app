@@ -122,11 +122,16 @@ const deleteFriend = async (req, res) => {
     try {
         let loggedInUser = await User.findById(req.params.id).populate('friends', '_id username');
         const user = await User.findOne({ $or: [{ email: username }, { username: username }] }).populate('friends', '_id username');
+        console.log(user);
         if (user && loggedInUser) {
-            loggedInUser.friends.splice(loggedInUser.friends.indexOf(user._id), 1);
+            console.log(loggedInUser.friends)
+            console.log(loggedInUser.friends.findIndex(friend => friend._id.equals(user._id)))
+            loggedInUser.friends.splice(loggedInUser.friends.findIndex(friend => friend._id.equals(user._id)), 1);
             loggedInUser.save();
-            user.friends.splice(user.friends.indexOf(loggedInUser._id), 1);
+            console.log(loggedInUser.friends);
+            user.friends.splice(user.friends.findIndex(friend => friend._id.equals(user._id)), 1);
             user.save();
+            console.log(user.friends)
             res.status(200).json(loggedInUser)
         }
     } catch (err) {
