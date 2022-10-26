@@ -1,7 +1,7 @@
 import UserContext from "../UserContext";
 import { useEffect, useContext, useState} from "react";
 
-const Chat = ({currentChat, setCurrentChat, socket}) => {
+const Chat = ({currentChat, updateChat, socket}) => {
 
     console.log(currentChat);
     const {loggedInUser} = useContext(UserContext);
@@ -21,19 +21,17 @@ const Chat = ({currentChat, setCurrentChat, socket}) => {
             created: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()  
         }
         await socket.emit("send_message", params);
-        setCurrentChat(oldChat => {
-            return {...oldChat, messages: [...oldChat.messages, params]}
-        });
+        updateChat(params);
         setMessageInput("");
     }
 
-    useEffect(() => {     
+    useEffect(() => {  
+        console.log("useEffect from Chat");   
         socket.on("receive_message", (message) => {
-            setCurrentChat((currentChat) => [...currentChat, message])
-        })
+            console.log("receive_message", message);
+            updateChat(message);
+    })
     }, [socket]);
-
-    
 
     return (
         <div id="chat-box">
@@ -42,13 +40,13 @@ const Chat = ({currentChat, setCurrentChat, socket}) => {
             <h2>{currentChat.users[0] === loggedInUser._id ? currentChat.users[1] : currentChat.users[0]}</h2> 
         
             <div id="message-box">
-              {currentChat.messages.map(message => {
+              {currentChat.messages.map((message, index) => {
                 return( 
-                <>
+                <div key={index}>
                     <p className={loggedInUser === message.user ? "you" : "other"}>{message.message}</p>
                     {/* <p className="message-username">{message.user.username}</p> */}
                     <p className="message-date">{message.created}</p>
-                </>
+                </div>
               )})}   
             </div>
 
