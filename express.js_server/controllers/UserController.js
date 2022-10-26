@@ -112,9 +112,9 @@ const deleteFriend = async (req, res) => {
         let loggedInUser = await User.findById(req.params.id);
         const user = await User.findOne({ $or: [{ email: username }, { username: username }] })
         if (user && loggedInUser) {
-            loggedInUser.friends.splice(loggedInUser.friends.indexOf(user), 1);
+            loggedInUser.friends.splice(loggedInUser.friends.indexOf(user._id), 1);
             loggedInUser.save();
-            user.friends.splice(user.friends.indexOf(loggedInUser), 1);
+            user.friends.splice(user.friends.indexOf(loggedInUser._id), 1);
             user.save();
             res.status(200).json(loggedInUser)
         }

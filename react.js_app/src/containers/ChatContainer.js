@@ -38,7 +38,7 @@ const ChatContainer = ({users, socket}) => {
     }
 
     const deleteFriend = async (friend) => {
-        const response = await fetch(`http://localhost:4000/addfriend/${loggedInUser._id}`, {
+        const response = await fetch(`http://localhost:4000/deletefriend/${loggedInUser._id}`, {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(friend)
