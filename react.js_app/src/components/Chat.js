@@ -25,8 +25,8 @@ const Chat = ({currentChat, updateChat, socket}) => {
     }
 
     const findUsername = () => {
-        const chatUser = currentChat.users[0] === loggedInUser._id ? currentChat.users[1] : currentChat.users[0];
-        return users.find(user => user._id === chatUser).username
+        const chatUser = currentChat.users[0]._id === loggedInUser._id ? currentChat.users[1].username : currentChat.users[0].username;
+        return chatUser
     }
 
     useEffect(() => {  
@@ -36,6 +36,8 @@ const Chat = ({currentChat, updateChat, socket}) => {
             updateChat(message);
     })
     }, [socket]);
+
+    console.log(currentChat)
 
     return (
         <div id="chat-box">

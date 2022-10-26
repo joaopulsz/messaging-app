@@ -1,0 +1,12 @@
+.search {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.search-btn {
+    margin-right: 10px;
+}
+
+#add-btn {
+    margin-left: 5px;
+}

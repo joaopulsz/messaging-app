@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 const register = (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hashedPass) => {
@@ -30,7 +30,7 @@ const login = (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
 
-    User.findOne({ $or: [{ email: username }, { username: username }] })
+    User.findOne({ $or: [{ email: username }, { username: username }] }).populate('friends', '_id username')
         .then(user => {
             if (user) {
                 bcrypt.compare(password, user.password, (err, result) => {
@@ -61,7 +61,7 @@ const login = (req, res) => {
 
 const getAllUsers = async(req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().populate('friends', '_id username');
         res.status(200).json(users);
     } catch (err) {
         res.status(500).json({
@@ -75,7 +75,7 @@ const getUserById = async (req, res) => {
     console.log(userId)
     let user;
     try {
-        user = await User.findById(userId);
+        user = await User.findById(userId).populate('friends', '_id username');
         res.json(user);
     } catch (err) {
         res.status(404).json({
@@ -89,8 +89,8 @@ const addFriend = async (req, res) => {
     let username = req.body.username;
 
     try {
-        let loggedInUser = await User.findById(req.params.id);
-        const user = await User.findOne({ $or: [{ email: username }, { username: username }] })
+        let loggedInUser = await User.findById(req.params.id).populate('friends', '_id username');
+        const user = await User.findOne({ $or: [{ email: username }, { username: username }] }).populate('friends', '_id username');
         if (user && loggedInUser) {
             loggedInUser.friends.push(user._id);
             loggedInUser.save();
@@ -109,8 +109,8 @@ const deleteFriend = async (req, res) => {
     let username = req.body.username;
     
     try {
-        let loggedInUser = await User.findById(req.params.id);
-        const user = await User.findOne({ $or: [{ email: username }, { username: username }] })
+        let loggedInUser = await User.findById(req.params.id).populate('friends', '_id username');
+        const user = await User.findOne({ $or: [{ email: username }, { username: username }] }).populate('friends', '_id username');
         if (user && loggedInUser) {
             loggedInUser.friends.splice(loggedInUser.friends.indexOf(user._id), 1);
             loggedInUser.save();

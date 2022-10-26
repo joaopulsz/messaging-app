@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import UserContext from "../UserContext";
 import ChatContainer from './ChatContainer';
 import UserContainer from './UserContainer';
@@ -56,7 +56,5 @@ const AppContainer = () => {
         </UserContext.Provider>
         )
 }
-
-// export const useUser = () => useContext(UserContext);
 
 export default AppContainer;

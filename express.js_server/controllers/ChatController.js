@@ -17,7 +17,7 @@ const getChatById = async (req, res) => {
 
 const getAllChats = async(req, res) => {
     try {
-        const chats = await Chat.find();
+        const chats = await Chat.find().populate('users', '_id username');
         res.status(200).json(chats);
     } catch (err) {
         res.status(500).json({

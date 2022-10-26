@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import UserContext from "../UserContext";
 import { Autocomplete } from '@mui/material'
 import { TextField } from "@mui/material";
+import "./Search.css"
 
 const Search = ({filteredFun, addFriend}) => {
     const {loggedInUser, users} = useContext(UserContext);
@@ -26,7 +27,7 @@ const Search = ({filteredFun, addFriend}) => {
         return loggedInUser.friends.find(friendId => {
             const friend = users.find(user => user._id === friendId)
             if(friend.username.toLowerCase() === username.toLowerCase()){
-                console.log(friend);
+                // console.log(friend);
                 setSearchedUser(friend)
                 return friend
             }else{
@@ -89,8 +90,8 @@ return(
               )}
         />
         <div className="right">
-            <button onClick={handleSubmit}>Search</button>
-            <button onClick={handleClickToAddFriend}>Add Friend</button>
+            <button id="search-btn" onClick={handleSubmit}>Search</button>
+            <button id="add-btn" onClick={handleClickToAddFriend}>Add Friend</button>
         </div>
     </div>
 )

@@ -14,9 +14,9 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     const navigate = useNavigate()
     
     const [currentChat, setCurrentChat] = useState();
-
+// filteredChats returns an array of chats containing logged in user
     const filteredChats = chats.filter(chat => {
-        return chat.users.map(user => user._id === loggedInUser._id)
+        return chat.users.findIndex(user => user._id === loggedInUser._id) !== -1
     })
 
     const addFriend = async (friend) => {
@@ -52,8 +52,14 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     }, [loggedInUser.friends])
    
     const currentFriendChat = (friendChat) => {
-        setCurrentChat(friendChat[0]);
-        socket.emit("join_chat", friendChat[0]._id);
+
+        let newFriendChat = friendChat
+        
+        console.log("friendChat")
+        console.log(friendChat);
+        
+        setCurrentChat(newFriendChat);
+        socket.emit("join_chat", friendChat._id);
     }
 
     const filteredFriends = searchedUser => {
