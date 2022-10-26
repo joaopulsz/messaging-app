@@ -24,10 +24,8 @@ const Search = ({filteredFun, addFriend}) => {
         })
 
     const filteredFriends = username => {
-        return loggedInUser.friends.find(friendId => {
-            const friend = users.find(user => user._id === friendId)
+        return loggedInUser.friends.find(friend => {
             if(friend.username.toLowerCase() === username.toLowerCase()){
-                // console.log(friend);
                 setSearchedUser(friend)
                 return friend
             }else{
@@ -37,9 +35,9 @@ const Search = ({filteredFun, addFriend}) => {
     }
 
     const isFindFriend = () => {
-        return loggedInUser.friends.find(friendId => {
+        return loggedInUser.friends.find(friend => {
             const isFind = users.find(user => {
-                if(user._id === friendId){
+                if(user._id === friend._id){
                     return user.username.toLowerCase() === inputValue.toLowerCase()
                 }else{
                     return false
@@ -55,6 +53,7 @@ const Search = ({filteredFun, addFriend}) => {
         if(inputValue === "") filteredFun(loggedInUser.friends)
         const friend = filteredFriends(inputValue)
         if(isFindFriend() && friend){
+            console.log(friend);
             filteredFun([friend])
         }
         setInputValue("")

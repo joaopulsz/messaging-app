@@ -14,7 +14,8 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     const navigate = useNavigate()
     
     const [currentChat, setCurrentChat] = useState();
-// filteredChats returns an array of chats containing logged in user
+    const [isDelete, setIsDelete] = useState(false)
+
     const filteredChats = chats.filter(chat => {
         return chat.users.findIndex(user => user._id === loggedInUser._id) !== -1
     })
@@ -35,10 +36,10 @@ const ChatContainer = ({users, socket, fetchChats}) => {
         }
         socket.emit("create_chat", params)
         fetchChats()
+        setIsDelete(false)
     }
 
     const deleteFriend = async (friend) => {
-        console.log(friend, "friend");
         const response = await fetch(`http://localhost:4000/deletefriend/${loggedInUser._id}`, {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
@@ -46,17 +47,16 @@ const ChatContainer = ({users, socket, fetchChats}) => {
         })
         const updatedUser = await response.json();
         setLoggedInUser(updatedUser);
-        console.log(updatedUser.friends)
         setFriends(updatedUser.friends)
         deleteChat(friend)
         fetchChats()
+        setIsDelete(true)
     }
 
     const deleteChat = async friend => {
         const chat = filteredChats.find(chat => {
             return chat.users.findIndex(user => user._id === friend._id) !== -1
         })
-        console.log(chat, "chat", chat._id);
         await fetch(`http://localhost:4000/chat/${chat._id}`, {
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
@@ -66,17 +66,24 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     useEffect (() => {
          setFriends(loggedInUser.friends);
     }, [loggedInUser.friends])
+
+    useEffect(() => {
+        fetchChats()
+    }, [loggedInUser.friends.length, currentChat.messages])
    
     const currentFriendChat = (friendChat) => {
-
-        let newFriendChat = friendChat
-        
-        console.log("friendChat")
-        console.log(friendChat);
-        
-        setCurrentChat(newFriendChat);
-        socket.emit("join_chat", friendChat._id);
+        if(chats.findIndex(chat => chat._id === friendChat._id) !== -1){
+            setIsDelete(false)
+            setCurrentChat(friendChat);
+            socket.emit("join_chat", friendChat._id);
+        }
     }
+
+    useEffect(() => {
+        if(isDelete){
+            setCurrentChat()
+        }
+    },[isDelete])
 
     const filteredFriends = searchedUser => {
         setFriends(searchedUser)
@@ -90,7 +97,7 @@ const ChatContainer = ({users, socket, fetchChats}) => {
     const updateChat = (newMessage) => {
         setCurrentChat({...currentChat, messages: [...currentChat.messages, newMessage]})
     }
-
+console.log(currentChat,"currentChat")
     return (
         <>
             <header className="chat-header">

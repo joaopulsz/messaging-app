@@ -37,8 +37,6 @@ const Chat = ({currentChat, updateChat, socket}) => {
     })
     }, [socket]);
 
-    console.log(currentChat)
-
     return (
         <div id="chat-box">
 

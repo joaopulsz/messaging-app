@@ -72,7 +72,6 @@ const getAllUsers = async(req, res) => {
 
 const getUserById = async (req, res) => {
     let userId = req.params.id;
-    console.log(userId)
     let user;
     try {
         user = await User.findById(userId).populate('friends', '_id username');
@@ -122,16 +121,13 @@ const deleteFriend = async (req, res) => {
     try {
         let loggedInUser = await User.findById(req.params.id).populate('friends', '_id username');
         const user = await User.findOne({ $or: [{ email: username }, { username: username }] }).populate('friends', '_id username');
-        console.log(user);
         if (user && loggedInUser) {
-            console.log(loggedInUser.friends)
-            console.log(loggedInUser.friends.findIndex(friend => friend._id.equals(user._id)))
             loggedInUser.friends.splice(loggedInUser.friends.findIndex(friend => friend._id.equals(user._id)), 1);
             loggedInUser.save();
-            console.log(loggedInUser.friends);
+            console.log(loggedInUser)
             user.friends.splice(user.friends.findIndex(friend => friend._id.equals(user._id)), 1);
+            console.log(user);
             user.save();
-            console.log(user.friends)
             res.status(200).json(loggedInUser)
         }
     } catch (err) {
