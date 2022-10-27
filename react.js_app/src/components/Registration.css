@@ -2,7 +2,8 @@
 body{
     background-image: url(https://wallpapercave.com/wp/wp6110843.jpg);
     background-size: cover;
-    height: 1000px;
+    background-repeat: no-repeat;
+    height: 900px;
 }
 
 .sign-up{

@@ -1,5 +1,7 @@
 import UserContext from "../UserContext";
 import { useContext, useState} from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
+import "./Chat.css"
 
 const Chat = ({currentChat, updateChat, socket}) => {
 
@@ -38,6 +40,7 @@ const Chat = ({currentChat, updateChat, socket}) => {
             <h2>{findUsername()}</h2> 
         
             <div id="message-box">
+            <ScrollToBottom className="message-container">
               {currentChat.messages.map((message, index) => {
                 return( 
                 <div key={index}>
@@ -45,7 +48,8 @@ const Chat = ({currentChat, updateChat, socket}) => {
                     <p className="message-username">{loggedInUser._id === message.user? 'You' : findUsername()}</p>
                     <p className="message-date">{message.created}</p>
                 </div>
-              )})}   
+              )})}
+              </ScrollToBottom>
             </div>
 
             <form id="message-input">
