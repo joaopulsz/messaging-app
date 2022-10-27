@@ -18,12 +18,7 @@ const ChatContainer = ({socket, fetchChats}) => {
         messages: []
     });
     const [isDelete, setIsDelete] = useState(false)
-// set the current chat as chat with the id passed in
-    const fetchChatById = async id => {
-        const response = await fetch('http://localhost:4000/chat/'+id)
-        const chatData = await response.json();
-        setCurrentChat(chatData);
-    }
+
 // return array of chats containing the logged in user
     const filteredChats = chats.filter(chat => {
         return chat.users.findIndex(user => user._id === loggedInUser._id) !== -1
@@ -79,7 +74,7 @@ const ChatContainer = ({socket, fetchChats}) => {
     useEffect(() => {
         fetchChats()
     }, [loggedInUser.friends.length, currentChat.messages])
-   
+    
     const currentFriendChat = (friendChat) => {
         if(chats.findIndex(chat => chat._id === friendChat._id) !== -1){
             setIsDelete(false)
@@ -106,12 +101,16 @@ const ChatContainer = ({socket, fetchChats}) => {
         navigate('/')
     }
 
-    const updateChat = () => {
-        fetchChatById(currentChat._id)
+    const updateChat = (message) => {
+        if(currentChat.messages.findIndex(currentMessage => currentMessage._id === message._id) === -1) {
+            const updatedChat = {...currentChat};
+            updatedChat.messages.push(message);
+            setCurrentChat(updatedChat)
+        }
     }
 
     return (
-        <>
+        <div className="chat-container">
             <header className="chat-header">
                 <p>You are logged in as {loggedInUser.username}</p>
                 <button onClick={logOut}>Log Out</button>
@@ -119,7 +118,6 @@ const ChatContainer = ({socket, fetchChats}) => {
             <main className="chat-main">
                 <section id="friends-list-section">
                     <Search filteredFun={filteredFriends} addFriend={addFriend} />
-                    {/* <AddFriend users={users}/> */}
                     <h3>Friends List</h3>
                     <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat} deleteFriend={deleteFriend} />
                 </section>
@@ -127,7 +125,7 @@ const ChatContainer = ({socket, fetchChats}) => {
                     {currentChat && currentChat.users.length > 0 ? <Chat socket={socket} currentChat={currentChat} updateChat={updateChat}/> : <></>}  
                 </section>
             </main>        
-        </>
+        </div>
     )
 }
 

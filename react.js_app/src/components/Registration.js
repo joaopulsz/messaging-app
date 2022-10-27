@@ -47,39 +47,38 @@ const Registration = ({addUser}) => {
 
     return(
         <div className="signup-container">
-        <div className="sign-up">
-        {/* logo */}
-        <form onSubmit={handleSubmit}>
-            <h2>Sign Up</h2>
-            <label htmlFor="email">Email:</label>
-            <input id="email" type="email" name="email" 
-            placeholder="Email" value={newUser.email} required onChange={handleChange}/>
+            <div className="sign-up">
+            <form onSubmit={handleSubmit}>
+                <h2>Sign Up</h2>
+                <label htmlFor="email">Email:</label>
+                <input id="email" type="email" name="email" 
+                placeholder="Email" value={newUser.email} required onChange={handleChange}/>
 
-            <label htmlFor="username">Username:</label>
-            <input id="username" type="text" name="username" 
-            placeholder="Username" value={newUser.username} required onChange={handleChange}/>
+                <label htmlFor="username">Username:</label>
+                <input id="username" type="text" name="username" 
+                placeholder="Username" value={newUser.username} required onChange={handleChange}/>
 
-            <label htmlFor="password">Password (minimum 1 characters): </label>
-            <input id="password" type="password" name="password" 
-            placeholder="Password" value={newUser.password} minLength="1" required onChange={handleChange}/>
+                <label htmlFor="password">Password (minimum 1 characters): </label>
+                <input id="password" type="password" name="password" 
+                placeholder="Password" value={newUser.password} minLength="1" required onChange={handleChange}/>
 
-            <label htmlFor="confirm_password">Confirm Password: </label>
-            <input id="confirm_password" type="password" name="confirmPassword" 
-            placeholder="Confirm Password" value={newUser.confirmPassword} minLength="1" 
-            required onChange={handleChange} onKeyUp={checkPassword}/>
-            { newUser.confirmPassword !== "" ?
-                <div className="pwd-message">
-                {match? <p>Passwords match ✅</p> : <p>Passwords don't match ❌</p>}
-                </div>
-             : <p className="hidden"></p>}
+                <label htmlFor="confirm_password">Confirm Password: </label>
+                <input id="confirm_password" type="password" name="confirmPassword" 
+                placeholder="Confirm Password" value={newUser.confirmPassword} minLength="1" 
+                required onChange={handleChange} onKeyUp={checkPassword}/>
+                { newUser.confirmPassword !== "" ?
+                    <div className="pwd-message">
+                    {match? <p>Passwords match ✅</p> : <p>Passwords don't match ❌</p>}
+                    </div>
+                : <p className="hidden"></p>}
 
-            <input id="create-account-btn" type="submit" value="Create Account" disabled={newUser.confirmPassword !== '' && match? false: true}/>
+                <input id="create-account-btn" type="submit" value="Create Account" disabled={newUser.confirmPassword !== '' && match? false: true}/>
 
-            <Link to="/">
-                <p>Log in</p>
-            </Link>
-        </form>
-        </div>
+                <Link to="/">
+                    <p>Log in</p>
+                </Link>
+            </form>
+            </div>
         </div>
     );
 

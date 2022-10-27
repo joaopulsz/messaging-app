@@ -70,7 +70,8 @@ io.on("connection", (socket) => {
         } 
         chat.messages.push(newMessage)
         chat.save()
-        socket.to(chat_id).emit("receive_message", newMessage);
+
+        socket.to(chat_id).emit("receive_message", chat.messages[chat.messages.length - 1]);
     });
 
     socket.on("disconnect", () => {

@@ -1,36 +1,24 @@
-import { convertLength } from "@mui/material/styles/cssUtils";
-import { useContext } from "react";
-import UserContext from "../UserContext";
 import "./FriendsList.css"
 
 const FriendsList = ({friends, filteredChats, currentFriendChat, deleteFriend}) => {
 
-    const {users, loggedInUser} = useContext(UserContext);
-
     const handleClick = friend => {
         deleteFriend(friend)
     }
-
+    // return chat between the logged in user and the clicked friend 
+// for each friend of the logged in user, 
     const friendsList = friends.map(friend => {
-        const chat = filteredChats.find(chat => {
-            return chat.users.findIndex(user => user._id === friend._id) !== -1
-        })
 
-        if (friend) {
-            let friendChat;
-            for(let chat of filteredChats) {
-                if((chat.users[0] === loggedInUser._id || chat.users[1] === loggedInUser._id) && 
-                (chat.users[0] === friend._id || chat.users[1] === friend._id)) {
-                    friendChat = chat;
-                }
-            }
+
+            const chat = filteredChats.find(chat => {
+                return chat.users.findIndex(user => user._id === friend._id) !== -1
+            })
             
             return (
-            <li key={friend._id} onClick={() => currentFriendChat(chat)}>
-                <p>{friend.username}</p>
+            <li key={friend._id}>
+                <p onClick={() => currentFriendChat(chat)}>{friend.username}</p>
                 <button onClick={() => handleClick(friend)}>Delete Friend</button>
             </li>);
-        }
     });
         
     return (

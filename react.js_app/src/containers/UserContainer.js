@@ -2,7 +2,6 @@ import { useContext} from "react";
 import UserContext from "../UserContext";
 import Registration from "../components/Registration";
 import Login from "../components/Login";
-import User from "../components/User";
 import {Routes, Route} from 'react-router-dom';
 
 const UserContainer = ({addUser}) => {

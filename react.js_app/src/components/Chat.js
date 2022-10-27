@@ -1,9 +1,9 @@
 import UserContext from "../UserContext";
-import { useEffect, useContext, useState} from "react";
+import { useContext, useState} from "react";
 
 const Chat = ({currentChat, updateChat, socket}) => {
 
-    const {users, loggedInUser} = useContext(UserContext);
+    const {loggedInUser} = useContext(UserContext);
 
     const [messageInput, setMessageInput] = useState("");
 
@@ -20,7 +20,6 @@ const Chat = ({currentChat, updateChat, socket}) => {
             created: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()  
         }
         await socket.emit("send_message", params);
-        updateChat();
         setMessageInput("");
     }
 
@@ -29,16 +28,13 @@ const Chat = ({currentChat, updateChat, socket}) => {
         return chatUser
     }
 
-    useEffect(() => {
-        socket.on("receive_message", () => {
-            updateChat();
+    socket.on("receive_message", (message) => {
+        updateChat(message);
     })
-    }, [socket]);
 
     return (
         <div id="chat-box">
 
-            {/* Will currently only work for 2 people*/}
             <h2>{findUsername()}</h2> 
         
             <div id="message-box">
