@@ -1,25 +1,28 @@
 .search {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     margin: 5px 10px;
 }
 
+.right {
+    margin: 0;
+}
+
 .right button {
-    background-color: #fad533;
+    background-color: transparent;
     border: 1px solid transparent;
     border-radius: 10px;
-    padding: 10px;
-    font-size: 15px;
+    margin: auto;
+    font-size: 35px;
 }
 
 .right button:hover {
-    box-shadow: 2px 2px #c1a31b;
+    box-shadow: 2px 2px rgb(129, 171, 243);
 }
 
 #search-btn {
     margin-top: 5px;
-    margin-left: 20px;
-    margin-right: 5px;
+    margin-left: 15px;
 }
 
 #add-btn {

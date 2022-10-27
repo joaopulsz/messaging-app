@@ -17,13 +17,16 @@ const FriendsList = ({friends, filteredChats, currentFriendChat, deleteFriend}) 
             return (
             <li key={friend._id}>
                 <p onClick={() => currentFriendChat(chat)}>{friend.username}</p>
-                <button onClick={() => handleClick(friend)}>Delete Friend</button>
+                <button onClick={() => handleClick(friend)}>&#128465;</button>
             </li>);
     });
         
     return (
-        <div className="friends-list-container">
-            <ul className="friends-list">{friendsList}</ul>
+        <div id="friends-list-div">
+                <h3>Friends</h3>
+            <div className="friends-list-container">
+                <ul className="friends-list">{friendsList}</ul>
+            </div>
         </div>
     );
 

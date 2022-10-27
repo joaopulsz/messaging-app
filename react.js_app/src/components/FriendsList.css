@@ -6,9 +6,18 @@
     font-weight: bold;
 }
 
+#friends-list-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .friends-list li p {
+    text-align: center;
+    margin: auto;
     cursor: pointer;
     width: 100%;
+    font-size: 20px;
     display: flex;
     justify-content: center;
 }
@@ -18,16 +27,15 @@
 }
 
 .friends-list li button {
-    length: 30%;
-    background-color: #fad533;
+    background-color: transparent;
     border: 1px solid transparent;
     border-radius: 10px;
     padding: 10px;
-    font-size: 15px;
+    font-size: 23px;
 }
 
 .friends-list li button:hover {
-    box-shadow: 2px 2px #c1a31b;
+    box-shadow: 2px 2px rgb(218, 40, 129);
 }
 
 .friends-list-container ul {
@@ -36,9 +44,20 @@
 }
 
 .friends-list-container {
-    border: 4px solid rgb(237, 222, 54);
+    border: 2px solid black;
     background-color: rgb(245, 223, 223);
     margin-left: 10px;
-    width: 65%;
+    width: 80%;
     border-radius: 10px;
+    justify-content: center;
+}
+
+
+#friends-list-div h3 {
+    margin: 10px 0;
+    margin-left: 10px;
+    font-family:'Varela Round', sans-serif;
+    color: black;
+    text-align: center;
+    font-size: 2em;
 }

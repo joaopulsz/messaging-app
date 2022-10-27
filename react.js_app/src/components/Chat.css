@@ -1,19 +1,20 @@
 .scroll-to-bottom {
-    height: 70vh;
-    width: 50vh;
+    height: 65vh;
+    width: 100%;
 }
 
 .message-box {
-    border: 3px solid rgb(218, 40, 129);
+    border: 2px solid black;
     padding: 25px;
     margin: auto 10px;
+    border-radius: 5px;
     background-image: url('https://tinyurl.com/2rj6dz82');
     background-size: cover;
 }
 
 #chat-box h2{
     font-family:'Varela Round', sans-serif;
-    color: rgb(218, 40, 129);
+    color: black;
     text-align: center;
     font-size: 2em;
 }

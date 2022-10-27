@@ -11,34 +11,26 @@
 .chat-header p {
     font-size: 20px;
     margin-bottom: 0;
+    font-weight: bold;
 }
 
-#name {
-    margin: auto;
-    margin-top: 5px;
-    margin-bottom: 10px;
+.p-text {
+    margin: 10px auto;
     text-align: center;
-    font-size: 23px;
-    font-weight: 700;
-    -webkit-text-stroke: 0.8px rgb(172, 41, 220);
-    color: rgb(250, 225, 225);
-    font-style: italic;
-    letter-spacing: 10%;
-    font-size: 1.8rem;
+    font-size: 20px;
 }
 
-.chat-header button {
-    width: 100px;
-    font-size: 18px;
-    padding: 10px;
+.log-out-btn button {
+    background-color: transparent;
     border: 1px solid transparent;
     border-radius: 10px;
-    font-weight: 550;
-    background-color: #fad533;
+    padding: 10px;
+    font-size: 40px;
 }
+    
 
-.chat-header button:hover {
-    box-shadow: 2px 2px #c1a31b;
+.log-out-btn button:hover {
+    box-shadow: 2px 2px rgb(218, 40, 129);
 }
 
 .chat-container{
@@ -46,15 +38,5 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-    padding: 30px;
-}
-
-#friends-list-section h3 {
-    margin: 10px 0;
-    margin-left: 10px;
-    -webkit-text-stroke: 0.8px rgb(172, 41, 220);
-    color: rgb(250, 225, 225);
-    font-style: italic;
-    letter-spacing: 10%;
-    font-size: 1.8rem;
+    padding: 10px 30px;
 }

@@ -114,14 +114,15 @@ const ChatContainer = ({socket, fetchChats}) => {
             <header className="chat-header">
                 <div className="p-text">
                     <p>You are logged in as:</p>
-                    <p id="name">{loggedInUser.username}</p>
+                    <p>{loggedInUser.username}</p>
                 </div>
-                <button onClick={logOut}>Log Out</button>
+                <div className="log-out-btn">
+                    <button onClick={logOut} alt="log out button">👋</button>
+                </div>
             </header>
             <main className="chat-main">
                 <section id="friends-list-section">
                     <Search filteredFun={filteredFriends} addFriend={addFriend} />
-                    <h3>Friends</h3>
                     <FriendsList friends={friends} filteredChats={filteredChats} currentFriendChat={currentFriendChat} deleteFriend={deleteFriend} />
                 </section>
                 <section>

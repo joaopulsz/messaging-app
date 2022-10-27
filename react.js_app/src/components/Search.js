@@ -88,8 +88,8 @@ return(
               )}
         />
         <div className="right">
-            <button id="search-btn" onClick={handleSubmit}>Search</button>
-            <button id="add-btn" onClick={handleClickToAddFriend}>Add Friend</button>
+            <button id="search-btn" onClick={handleSubmit} alt="search button">🔍</button>
+            <button id="add-btn" onClick={handleClickToAddFriend} alt="add friend button">➕</button>
         </div>
     </div>
 )
