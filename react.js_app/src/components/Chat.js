@@ -3,6 +3,7 @@ import { useContext, useState} from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./Chat.css"
 
+
 const Chat = ({currentChat, updateChat, socket}) => {
 
     const {loggedInUser} = useContext(UserContext);
@@ -39,19 +40,18 @@ const Chat = ({currentChat, updateChat, socket}) => {
 
             <h2>{findUsername()}</h2> 
         
-            <div id="message-box">
-            <ScrollToBottom className="message-container">
+            <div className="message-box">
+            <ScrollToBottom className="scroll-to-bottom">
+                <div className="message-container">
               {currentChat.messages.map((message, index) => {
                 return( 
-                <div key={index}>
-                    <p className={loggedInUser === message.user ? "you" : "other"}>{message.message}</p>
-                    <p className="message-username">{loggedInUser._id === message.user? 'You' : findUsername()}</p>
-                    <p className="message-date">{message.created}</p>
+                <div className={loggedInUser._id === message.user ? "you" : "other"} key={index}>
+                    <p >{message.message}</p>
+                    <p className="message-details">{loggedInUser._id === message.user? 'You' : findUsername()} {message.created}</p>
                 </div>
               )})}
-              </ScrollToBottom>
-            </div>
-
+              </div>
+                </ScrollToBottom>
             <form id="message-input">
                 <input
                     type="text"
@@ -59,8 +59,10 @@ const Chat = ({currentChat, updateChat, socket}) => {
                     onChange={handleMessageChange}
                     value={messageInput}
                 />
-                <button onClick={sendMessage} type="submit">&#xF6C0;</button>
+                <button onClick={sendMessage} type="submit">&#9658;</button>
             </form>
+            </div>
+
                   
         </div>
     );

@@ -1,17 +1,72 @@
-.message-container {
-    height: 400px;
-    width: 400px;
-    border: 5px solid hotpink;
+.scroll-to-bottom {
+    height: 70vh;
+    width: 50vh;
+}
+
+.message-box {
+    border: 3px solid rgb(218, 40, 129);
     padding: 25px;
+    margin: auto 10px;
+    background-image: url('https://tinyurl.com/2rj6dz82');
+    background-size: cover;
+}
+
+#chat-box h2{
+    font-family:'Varela Round', sans-serif;
+    color: rgb(218, 40, 129);
+    text-align: center;
+    font-size: 2em;
+}
+
+#message-input{
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    margin-top: 10px;
+}
+
+#message-input input {
+    padding: 10px;
+    width: 86%;
+    margin-right: 3px;
+}
+
+#message-input button {
+    padding: 10px;
+    background-color: antiquewhite;
 }
 
 
 
 
-
+.message-container {
+    display: flex;
+    flex-direction: column;
+    
+}
 
 .you {
-    background-color: green;
+    width: fit-content;
+    background-color: rgb(119, 233, 159);
+    border-radius: 10px;
+    padding: 10px;
+    align-self: flex-end;
+    border: 1px solid black;
+    margin: 3px 0px;
 }
 
-.other {}
+.other {
+    width: fit-content;
+    background-color: rgb(129, 171, 243);
+    border-radius: 10px;
+    padding: 10px;
+    align-self: flex-start;
+    border: 1px solid black;
+    margin: 3px 0px;
+}
+
+.message-details {
+    font-size: 0.6rem;
+    font-weight: bold;
+    color: rgb(50, 50, 50)
+}
