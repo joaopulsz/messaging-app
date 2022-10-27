@@ -1,12 +1,38 @@
 .search {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    margin: 5px 10px;
 }
 
-.search-btn {
-    margin-right: 10px;
+.right button {
+    background-color: #fad533;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.right button:hover {
+    box-shadow: 2px 2px #c1a31b;
+}
+
+#search-btn {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 5px;
 }
 
 #add-btn {
     margin-left: 5px;
 }
+
+@media screen and (max-width: 900px) {
+    .search {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 5px 10px;
+    }
+    #search-btn{
+        margin: 5px 8px;
+    } 
+} 
