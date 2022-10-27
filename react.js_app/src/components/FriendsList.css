@@ -1,4 +1,44 @@
 .friends-list li {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     justify-content: space-around;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.friends-list li p {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.friends-list li p:hover{
+    color: rgb(197, 121, 134);
+}
+
+.friends-list li button {
+    length: 30%;
+    background-color: #fad533;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.friends-list li button:hover {
+    box-shadow: 2px 2px #c1a31b;
+}
+
+.friends-list-container ul {
+    padding: 15px;
+    margin: 0px;
+}
+
+.friends-list-container {
+    border: 4px solid rgb(237, 222, 54);
+    background-color: rgb(245, 223, 223);
+    margin-left: 10px;
+    width: 65%;
+    border-radius: 10px;
 }
