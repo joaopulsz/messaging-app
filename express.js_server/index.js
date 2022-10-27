@@ -30,7 +30,7 @@ const {Server} = require("socket.io");
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "*",
         methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
     },
 });
@@ -50,6 +50,7 @@ io.on("connection", (socket) => {
     
     socket.on("join_chat", (chat_id) => {
         console.log("joined chat", chat_id);
+        // if(chatId) socket.leave(chatId);
         socket.join(chat_id);
         chatId = chat_id;
     });
@@ -69,7 +70,6 @@ io.on("connection", (socket) => {
         } 
         chat.messages.push(newMessage)
         chat.save()
-        // newMessage.chat_id = chat_id;
         socket.to(chat_id).emit("receive_message", newMessage);
     });
 

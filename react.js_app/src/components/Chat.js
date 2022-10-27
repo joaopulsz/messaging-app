@@ -20,7 +20,7 @@ const Chat = ({currentChat, updateChat, socket}) => {
             created: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()  
         }
         await socket.emit("send_message", params);
-        updateChat(params);
+        updateChat();
         setMessageInput("");
     }
 
@@ -29,11 +29,9 @@ const Chat = ({currentChat, updateChat, socket}) => {
         return chatUser
     }
 
-    useEffect(() => {  
-        console.log("useEffect from Chat");   
-        socket.on("receive_message", (message) => {
-            console.log("receive_message", message);
-            updateChat(message);
+    useEffect(() => {
+        socket.on("receive_message", () => {
+            updateChat();
     })
     }, [socket]);
 
@@ -48,7 +46,7 @@ const Chat = ({currentChat, updateChat, socket}) => {
                 return( 
                 <div key={index}>
                     <p className={loggedInUser === message.user ? "you" : "other"}>{message.message}</p>
-                    {/* <p className="message-username">{message.user.username}</p> */}
+                    <p className="message-username">{loggedInUser._id === message.user? 'You' : findUsername()}</p>
                     <p className="message-date">{message.created}</p>
                 </div>
               )})}   

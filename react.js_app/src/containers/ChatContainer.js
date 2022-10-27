@@ -18,7 +18,13 @@ const ChatContainer = ({socket, fetchChats}) => {
         messages: []
     });
     const [isDelete, setIsDelete] = useState(false)
-
+// set the current chat as chat with the id passed in
+    const fetchChatById = async id => {
+        const response = await fetch('http://localhost:4000/chat/'+id)
+        const chatData = await response.json();
+        setCurrentChat(chatData);
+    }
+// return array of chats containing the logged in user
     const filteredChats = chats.filter(chat => {
         return chat.users.findIndex(user => user._id === loggedInUser._id) !== -1
     })
@@ -100,10 +106,8 @@ const ChatContainer = ({socket, fetchChats}) => {
         navigate('/')
     }
 
-    const updateChat = (newMessage) => {
-        const chatId = chats.findIndex(chat => chat._id === currentChat._id)
-        const chat = chats[chatId]
-        setCurrentChat({...chat, messages: [...chat.messages, newMessage]})
+    const updateChat = () => {
+        fetchChatById(currentChat._id)
     }
 
     return (
