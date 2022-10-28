@@ -71,3 +71,32 @@
     font-weight: bold;
     color: rgb(50, 50, 50)
 }
+
+@media screen and (max-width: 1150px) {
+    #message-input input {
+        
+        width: 76%;
+
+    }
+    
+    #message-input button {
+        padding: 10px;
+        background-color: antiquewhite;
+    }
+
+}
+ 
+
+@media screen and (max-width: 740px) {
+    #message-input input {
+        
+        width: 56%;
+
+    }
+    
+    #message-input button {
+        padding: 10px;
+        background-color: antiquewhite;
+    }
+
+}
